@@ -15,8 +15,17 @@ class Deck:
                     if i % 2 == 0:
                         self.cards.append(Card(b, None))
         shuffle(self.cards)
-        for card in self.cards:
-            print(card.filepath)
-        print(len(self.cards))
 
-gameDeck = Deck()
+    def size(self):
+        return len(self.cards)
+
+    def addCard(self, card):
+        if type(card) != Card:
+            raise Exception("Card argument must be of type Card")
+        self.cards.append(card)
+
+    def getCards(self, nb = 1):
+        cardPop = []
+        for i in range(nb):
+            cardPop.append(self.cards.pop(0))
+        return cardPop
