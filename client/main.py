@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 
-from Graphic import graphic
+from Graphic import Graphic
+from Network import Network
 
-Main = graphic()
+network = Network("", 8080)
+ret = network.getRet()
+print(ret)
+
+Main = Graphic()
 Main.mainLoop()

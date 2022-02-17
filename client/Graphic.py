@@ -2,7 +2,7 @@
 
 import pygame
 
-class graphic:
+class Graphic:
 
 	window_width = 1280
 	window_height = 720
