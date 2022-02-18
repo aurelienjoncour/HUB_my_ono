@@ -1,4 +1,6 @@
 from _thread import *
+import pickle
+from game.Game import Game
 import socket
 
 class Server:
@@ -9,6 +11,7 @@ class Server:
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.server.bind((self.ip_address, self.port))
         self.nb_connection = 0
+        self.games = Game()
 
     def listen(self):
         self.server.listen(2)
@@ -16,10 +19,22 @@ class Server:
 
     def handle_client(self, conn, foo):
         conn.send(str.encode("Hello from server"))
+        self.games.addPlayer("TauteBZH")
+        self.games.initPlayerCards()
 
         while True:
             try:
                 data = conn.recv(4096).decode()
+                print("data receive: ", data)
+                if not data:
+                    break
+                else: 
+                    if data == "play":
+                        print("play")
+                    dump = pickle.dumps(self.games)
+                    print("Size:", len(dump))
+                    conn.sendall(dump)
+
             except:
                 break
         print("Lost connection")

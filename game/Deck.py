@@ -1,5 +1,5 @@
 from random import shuffle
-from Card import Card, Color, Value, Bonus
+from game.Card import Card, Color, Value, Bonus
 
 class Deck:
     def __init__(self):

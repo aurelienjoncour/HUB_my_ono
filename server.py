@@ -1,4 +1,4 @@
-from Server import Server
+from server.Server import Server
 
 ip_address = ""
 port = 8080

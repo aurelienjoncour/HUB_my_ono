@@ -30,7 +30,7 @@ class Cards:
 
     def create_card(self, card):
         print(f"Load {card}")
-        return pygame.image.load(f"asset/cards/{card}")
+        return pygame.image.load(f"client/asset/cards/{card}")
 
     def load_assets(self):
         for e in list(self.cards):

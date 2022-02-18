@@ -1,4 +1,4 @@
-from Cards import Cards
+from client.Cards import Cards
 
 class GameHUD:
     def __init__(self, screen) -> None:
@@ -16,11 +16,11 @@ class GameHUD:
         #TODO: display hidden deck
         print("card hidden")
 
-    def player_card_deck(self, filepathList):
+    def player_card_deck(self, cardList):
         y = 50
         x = 10
-        for card in filepathList:
-            self.cards.display(card, (x, y))
+        for card in cardList:
+            self.cards.display(card.filepath, (x, y))
             x = x + 40
 
     def opponent(self):

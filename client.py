@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import pygame
-from MainMenu import MainMenu
-from Graphic import Graphic
-from Network import Network
+from client.MainMenu import MainMenu
+from client.Graphic import Graphic
+from client.Network import Network
 
 pygame.init()
 
@@ -18,4 +18,5 @@ menu.menuLoop()
 if not menu.should_exit:
     network = Network(menu.ip_address, 8080)
     ret = network.getRet()
-    Main.mainLoop()
+    print(ret)
+    Main.mainLoop(network)
