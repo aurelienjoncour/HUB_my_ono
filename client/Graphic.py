@@ -33,7 +33,9 @@ class Graphic:
 				break
 			self.screen.fill((255, 255, 255))
 			self.screen.blit(self.background_image, [0, 0])
-			self.hud.player(game.players[0].deck)
+			self.hud.player(game.players[0])
+			if game.nbPlayer > 1:
+				self.hud.opponent(game.players[1])
 			self.hud.top_stack_card(game.topStackCard)
 			pygame.display.flip()
 			for event in pygame.event.get():

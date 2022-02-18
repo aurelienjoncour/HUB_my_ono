@@ -12,13 +12,11 @@ class GameHUD:
         self.font_nb_card = pygame.font.SysFont('Arial', 50)
         pygame.display.set_caption('Box Test')
 
-    def card_indicator(self):
-        self.screen.blit(self.font_nb_card.render('7', True, (255,255,255)), (10, 150))
-        print("card indicator")
+    def card_indicator(self, nb):
+        self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (10, 150))
 
-    def player_name(self):
-        self.screen.blit(self.font_name.render('Jaajeur', True, (255,255,255)), (50, 150))
-        print("player name")
+    def player_name(self, name):
+        self.screen.blit(self.font_name.render(name, True, (255,255,255)), (50, 150))
 
     def opponent_card_deck(self, cardList):
         y = self.infoObject.current_h - self.card_h -50
@@ -26,8 +24,6 @@ class GameHUD:
         for card in cardList:
             self.cards.display("uno_back.png", (x, y))
             x = x + 40
-        #TODO: display hidden deck
-        print("card hidden")
 
     def player_card_deck(self, cardList):
         y = 50
@@ -37,19 +33,17 @@ class GameHUD:
             x = x + 40
 
     def top_stack_card(self, card):
-        self.cards.display(card.filepath, (self.infoObject.current_w / 2 - self.card_w, self.infoObject.current_h / 2 - self.card_h))
+        self.cards.display(card.filepath, ((self.infoObject.current_w - self.card_w) / 2 , (self.infoObject.current_h - self.card_h) / 2 ))
 
-    def opponent(self):
-        #TODO: display all components of the oponent
-        self.player_name()
-        self.card_indicator()
-        self.opponent_card_deck()
+    def opponent(self, oponent):
+        self.player_name(oponent.name)
+        self.card_indicator(len(oponent.deck))
+        self.opponent_card_deck(oponent.deck)
 
-    def player(self, cardList):
-        #TODO: display actual player
-        self.player_name()
-        self.card_indicator()
-        self.player_card_deck(cardList)
+    def player(self, player):
+        self.player_name(player.name)
+        self.card_indicator(len(player.deck))
+        self.player_card_deck(player.deck)
 
     def draw_arrow(self):
         #TODO: display arrow that show
