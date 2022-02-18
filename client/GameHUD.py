@@ -1,15 +1,19 @@
 from client.Cards import Cards
+import pygame
 
 class GameHUD:
     def __init__(self, screen) -> None:
         self.cards = Cards(screen)
+        self.screen = screen
+        self.font = pygame.font.SysFont('Arial', 25)
+        pygame.display.set_caption('Box Test')
 
     def card_indicator(self):
         #TODO: display 2 overlapping cards icons and a number
         print("card indicator")
 
     def player_name(self):
-        #TODO: display player name inside a rectangle
+        self.screen.blit(self.font.render('Jaajeur', True, (255,255,255)), (20, 150))
         print("player name")
 
     def opponent_card_deck(self):
@@ -31,10 +35,11 @@ class GameHUD:
 
     def player(self, cardList):
         #TODO: display actual player
-        #self.player_name()
+        self.player_name()
         #self.card_indicator()
         self.player_card_deck(cardList)
-    
+
     def draw_arrow(self):
         #TODO: display arrow that show
         print("draw arrow")
+
