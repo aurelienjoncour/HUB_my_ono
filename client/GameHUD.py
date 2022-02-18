@@ -6,6 +6,7 @@ class GameHUD:
         self.card_w = 64
         self.card_h = 96
         self.cards = Cards(screen)
+        self.card_pos = []
         self.infoObject = pygame.display.Info()
         self.screen = screen
         self.font_name = pygame.font.SysFont('Arial', 25)
@@ -28,8 +29,10 @@ class GameHUD:
     def player_card_deck(self, cardList):
         y = 50
         x = 10
+        self.card_pos.clear()
         for card in cardList:
             self.cards.display(card.filepath, (x, y))
+            self.card_pos.append(pygame.Rect(x, y, x + self.card_w, y + self.card_h))
             x = x + 40
 
     def top_stack_card(self, card):
@@ -48,4 +51,10 @@ class GameHUD:
     def draw_arrow(self):
         #TODO: display arrow that show
         print("draw arrow")
+
+    def clickOnCard(self):
+        print("Click !")
+        for i in range(len(self.card_pos)):
+            if self.card_pos[i].collidepoint(pygame.mouse.get_pos()):
+                print(i)
 

@@ -44,3 +44,6 @@ class Graphic:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					self.isrunning = False
+				if event.type == pygame.MOUSEBUTTONDOWN:
+					#if event.button == 1:
+					self.hud.clickOnCard()
