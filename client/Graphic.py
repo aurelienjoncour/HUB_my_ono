@@ -23,7 +23,6 @@ class Graphic:
 
 	def mainLoop(self, network):
 		self.network = network
-		test_list = ["uno_y_4.png","uno_r_7.png","uno_g_4.png"]
 		while self.isrunning:
 			self.clock.tick(60)
 			try:
@@ -35,6 +34,7 @@ class Graphic:
 			self.screen.fill((255, 255, 255))
 			self.screen.blit(self.background_image, [0, 0])
 			self.hud.player(game.players[0].deck)
+			self.hud.top_stack_card(game.topStackCard)
 			pygame.display.flip()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:

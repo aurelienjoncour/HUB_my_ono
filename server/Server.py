@@ -20,7 +20,7 @@ class Server:
     def handle_client(self, conn, foo):
         conn.send(str.encode("Hello from server"))
         self.games.addPlayer("TauteBZH")
-        self.games.initPlayerCards()
+        self.games.start()
 
         while True:
             try:

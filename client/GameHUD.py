@@ -27,6 +27,9 @@ class GameHUD:
             self.cards.display(card.filepath, (x, y))
             x = x + 40
 
+    def top_stack_card(self, card):
+        self.cards.display(card.filepath, (500, 500))
+
     def opponent(self):
         #TODO: display all components of the oponent
         self.player_name()
