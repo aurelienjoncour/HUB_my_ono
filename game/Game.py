@@ -3,17 +3,20 @@ from game.Player import Player
 
 class Game:
 
-    def __init__(self) -> None:
+    def __init__(self, id) -> None:
         self.players = []
+        self.nbPlayer = 0
         self.deck = Deck()
         self.topStackCard = None
+        self.gameId = id
+        self.isStarted = False
+        self.setTopStackCard()
 
-    def initPlayerCards(self):
-        for player in self.players:
-            player.deck = self.deck.getCards(7)
-
-    def addPlayer(self, name):
-        self.players.append(Player(name))
+    def addPlayer(self, name, player_id):
+        player = Player(name, player_id)
+        player.deck = self.deck.getCards(7)
+        self.players.append(player)
+        self.nbPlayer = len(self.players)
 
     def setTopStackCard(self):
         tmpCard = None
@@ -23,7 +26,5 @@ class Game:
             tmpCard = self.deck.getCards()[0]
             self.topStackCard = tmpCard
 
-
     def start(self):
-        self.initPlayerCards()
-        self.setTopStackCard()
+        self.isStarted = True

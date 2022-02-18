@@ -7,11 +7,11 @@ class Network:
         self.ip_address = ip_address
         self.port = port
         self.addr = (self.ip_address, self.port)
-        self.ret = self.connect()
 
-    def connect(self):
+    def connect(self, pseudo):
         try:
             self.client.connect(self.addr)
+            self.client.send(str.encode(pseudo))
             return self.client.recv(2048).decode()
         except:
             pass
@@ -22,6 +22,3 @@ class Network:
             return pickle.loads(self.client.recv(2048*4))
         except socket.error as e:
             print(e)
-
-    def getRet(self):
-        return self.ret

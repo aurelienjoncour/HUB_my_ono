@@ -21,8 +21,9 @@ class Graphic:
 		self.hud = GameHUD(self.screen)
 		self.background_image = pygame.image.load("client/asset/my_uno_bg.png").convert()
 
-	def mainLoop(self, network):
+	def mainLoop(self, network, player_id):
 		self.network = network
+		self.player_id = player_id
 		while self.isrunning:
 			self.clock.tick(60)
 			try:
@@ -33,9 +34,11 @@ class Graphic:
 				break
 			self.screen.fill((255, 255, 255))
 			self.screen.blit(self.background_image, [0, 0])
-			self.hud.player(game.players[0])
-			if game.nbPlayer > 1:
-				self.hud.opponent(game.players[1])
+			for player in game.players:
+				if player_id == player.id:
+					self.hud.player(player)
+				else:
+					self.hud.opponent(player)
 			self.hud.top_stack_card(game.topStackCard)
 			pygame.display.flip()
 			for event in pygame.event.get():

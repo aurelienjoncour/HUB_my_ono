@@ -3,9 +3,11 @@
 import pygame
 # from Button import button
 
+from random import randrange
+
 class MainMenu:
     ip_address = ""
-    player_name = ""
+    player_name = str(randrange(9999999999))
     clock = pygame.time.Clock()
     join_button = None
     create_button = None

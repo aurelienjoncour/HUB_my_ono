@@ -17,6 +17,6 @@ menu.menuLoop()
 
 if not menu.should_exit:
     network = Network(menu.ip_address, 8080)
-    ret = network.getRet()
-    print(ret)
-    Main.mainLoop(network)
+    res = network.connect(menu.player_name)
+    playerId = int(res)
+    Main.mainLoop(network, playerId)
