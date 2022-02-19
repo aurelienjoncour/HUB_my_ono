@@ -13,48 +13,47 @@ class GameHUD:
         self.font_nb_card = pygame.font.SysFont('Arial', 50)
         pygame.display.set_caption('Box Test')
 
-    def card_indicator(self, nb):
-        self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (10, 150))
+    def card_indicator(self, nb, pos):
+        self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0], pos[1] + 100))
 
-    def player_name(self, name):
-        self.screen.blit(self.font_name.render(name, True, (255,255,255)), (50, 150))
+    def player_name(self, name, pos):
+        self.screen.blit(self.font_name.render(name, True, (255,255,255)), (pos[0] + 40, pos[1] + 100))
 
-    def opponent_card_deck(self, cardList):
-        y = self.infoObject.current_h - self.card_h -50
-        x = 10
+    def opponent_card_deck(self, cardList, pos):
+        _pos = list(pos)
         for card in cardList:
-            self.cards.display("uno_back.png", (x, y))
-            x = x + 40
+            self.cards.display("uno_back.png", _pos)
+            _pos[0] = _pos[0] + 40
 
-    def player_card_deck(self, cardList):
-        y = 50
-        x = 10
+    def player_card_deck(self, cardList, pos):
+        _pos = list(pos)
         self.card_pos.clear()
         for card in cardList:
-            self.cards.display(card.filepath, (x, y))
-            self.card_pos.append(pygame.Rect(x, y, x + self.card_w, y + self.card_h))
-            x = x + 40
+            self.cards.display(card.filepath, _pos)
+            self.card_pos.append(pygame.Rect(_pos[0], _pos[1], self.card_w, self.card_h))
+            _pos[0] += 40
 
     def top_stack_card(self, card):
         self.cards.display(card.filepath, ((self.infoObject.current_w - self.card_w) / 2 , (self.infoObject.current_h - self.card_h) / 2 ))
 
-    def opponent(self, oponent):
-        self.player_name(oponent.name)
-        self.card_indicator(len(oponent.deck))
-        self.opponent_card_deck(oponent.deck)
+    def opponent(self, oponent, pos):
+        self.player_name(oponent.name, pos)
+        self.card_indicator(len(oponent.deck), pos)
+        self.opponent_card_deck(oponent.deck, pos)
 
-    def player(self, player):
-        self.player_name(player.name)
-        self.card_indicator(len(player.deck))
-        self.player_card_deck(player.deck)
+    def player(self, player, pos):
+        self.player_name(player.name, pos)
+        self.card_indicator(len(player.deck), pos)
+        self.player_card_deck(player.deck, pos)
 
     def draw_arrow(self):
         #TODO: display arrow that show
         print("draw arrow")
 
     def clickOnCard(self):
+        carte_idx = None
         print("Click !")
         for i in range(len(self.card_pos)):
             if self.card_pos[i].collidepoint(pygame.mouse.get_pos()):
-                print(i)
-
+                carte_idx = i
+        return carte_idx
