@@ -20,7 +20,11 @@ class Graphic:
 		pygame.init()
 		self.infoObject = pygame.display.Info()
 		self.player_pos = (10, 10)
-		self.opponent_pos = (10, self.infoObject.current_h - self.card_h - 50)
+		self.opponents_pos = [
+			(self.infoObject.current_w - self.card_w - 10, 10),
+			(self.infoObject.current_w - self.card_w - 10, self.infoObject.current_h - self.card_h - 50),
+			(10, self.infoObject.current_h - self.card_h - 50)
+		]
 		self.screen = screen
 		self.hud = GameHUD(self.screen)
 		self.background_image = pygame.image.load("client/asset/my_uno_bg.png").convert()
@@ -42,7 +46,10 @@ class Graphic:
 				if player_id == player.id:
 					self.hud.player(player, self.player_pos)
 				else:
-					self.hud.opponent(player, self.opponent_pos)
+					self.hud.opponent(player, self.opponents_pos[0])
+					self.hud.opponent(player, self.opponents_pos[1])
+					self.hud.opponent(player, self.opponents_pos[2])
+
 			self.hud.top_stack_card(game.topStackCard)
 			pygame.display.flip()
 			for event in pygame.event.get():

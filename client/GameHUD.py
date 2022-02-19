@@ -1,3 +1,4 @@
+from distutils.log import info
 from client.Cards import Cards
 import pygame
 
@@ -13,17 +14,31 @@ class GameHUD:
         self.font_nb_card = pygame.font.SysFont('Arial', 50)
         pygame.display.set_caption('Box Test')
 
+    def is_right_side(self, pos):
+        if pos[0] < (self.infoObject.current_w / 2):
+            return False
+        return True
+
     def card_indicator(self, nb, pos):
-        self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0], pos[1] + 100))
+        if self.is_right_side(pos):
+            self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0] + 32, pos[1] + 100))
+        else:
+            self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0], pos[1] + 100))
 
     def player_name(self, name, pos):
-        self.screen.blit(self.font_name.render(name, True, (255,255,255)), (pos[0] + 40, pos[1] + 100))
+        if self.is_right_side(pos):
+            self.screen.blit(self.font_name.render(name, True, (255,255,255)), (pos[0] - 200, pos[1] + 100))
+        else:
+            self.screen.blit(self.font_name.render(name, True, (255,255,255)), (pos[0] + 40, pos[1] + 100))
 
     def opponent_card_deck(self, cardList, pos):
         _pos = list(pos)
         for card in cardList:
             self.cards.display("uno_back.png", _pos)
-            _pos[0] = _pos[0] + 40
+            if self.is_right_side(pos):
+                _pos[0] = _pos[0] - 40
+            else:
+                _pos[0] = _pos[0] + 40
 
     def player_card_deck(self, cardList, pos):
         _pos = list(pos)
