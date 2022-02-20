@@ -10,6 +10,8 @@ class Game:
         self.topStackCard = None
         self.gameId = id
         self.isStarted = False
+        self.play_sense = 1
+        self.player_idx = 0
         self.setTopStackCard()
 
     def addPlayer(self, name, player_id):
@@ -31,6 +33,21 @@ class Game:
     def is_player_card_playable(self):
         for player in self.players:
             player.updatePlayableCard(self.topStackCard)
+
+    def setIndexToNextPlayer(self, shouldSkip = False):
+        if self.play_sense:
+            if self.player_idx + 1 == self.nbPlayer:
+                self.player_idx = 0
+            else:
+                self.player_idx += 1
+        else:
+            if self.player_idx + 1 == - 1:
+                self.player_idx = self.nbPlayer - 1
+            else:
+                self.player_idx -= 1
+        if shouldSkip:
+            self.setIndexToNextPlayer()
+        self.players[self.player_idx] = True
 
     def start(self):
         self.isStarted = True

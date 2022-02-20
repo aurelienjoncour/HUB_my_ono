@@ -2,6 +2,7 @@ class Player:
     def __init__(self, name, id) -> None:
         self.name = name
         self.id = id
+        self.should_play = False
         self.deck = []
 
     def updatePlayableCard(self, top_card):
