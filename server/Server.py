@@ -60,8 +60,8 @@ class Server:
         conn.sendall(str.encode(str(playerId)))
 
         self.nb_connection += 1
-        gameId = (self.nb_connection - 1)//2
-        if self.nb_connection % 2 == 1:
+        gameId = (self.nb_connection - 1)//4
+        if self.nb_connection % 4 == 1:
             self.games[gameId] = Game(gameId)
             self.games[gameId].addPlayer(player, playerId)
             print("Create a new game: id ", gameId)
