@@ -33,6 +33,14 @@ class Game:
         for player in self.players:
             player.updatePlayableCard(self.topStackCard)
 
+    def add_card_if_not_playable(self):
+        for player in self.players:
+            if player.should_play:
+                while not player.isDeckPlayable():
+                    card = self.deck.getCards()[0]
+                    player.deck.append(card)
+                    self.is_player_card_playable()
+
     def setIndexToNextPlayer(self, shouldSkip = False):
         if self.play_sense:
             if self.player_idx + 1 == self.nbPlayer:
@@ -46,7 +54,8 @@ class Game:
                 self.player_idx -= 1
         if shouldSkip:
             self.setIndexToNextPlayer()
-        self.players[self.player_idx] = True
+        self.players[self.player_idx].should_play = True
+        self.add_card_if_not_playable()
 
     def play_card(self, card, player_idx):
         print("Play Card")
@@ -58,6 +67,7 @@ class Game:
         print("Before remove")
         self.players[player_idx].deck.remove(card)
         print("AFter remove")
+        self.setIndexToNextPlayer()
 
 
     def start(self):

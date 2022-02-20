@@ -38,8 +38,7 @@ class Graphic:
 
 	def play(self, cardIdx):
 		player = self.get_player()
-		# if player.should_play and player.deck[cardIdx].playable:
-		if player.deck[cardIdx].playable:
+		if player.should_play and player.deck[cardIdx].playable:
 			self.game = self.network.send(str(cardIdx))
 
 	def mainLoop(self, network, player_id):
