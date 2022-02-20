@@ -44,7 +44,7 @@ class GameHUD:
         _pos = list(pos)
         self.card_pos.clear()
         for card in cardList:
-            self.cards.display(card.filepath, _pos)
+            self.cards.display_player(card, _pos)
             self.card_pos.append(pygame.Rect(_pos[0], _pos[1], self.card_w, self.card_h))
             _pos[0] += 40
 
