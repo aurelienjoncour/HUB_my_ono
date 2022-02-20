@@ -28,7 +28,6 @@ class Game:
                 self.deck.addCard(tmpCard)
             tmpCard = self.deck.getCards()[0]
             self.topStackCard = tmpCard
-        self.is_player_card_playable()
 
     def is_player_card_playable(self):
         for player in self.players:
@@ -49,5 +48,18 @@ class Game:
             self.setIndexToNextPlayer()
         self.players[self.player_idx] = True
 
+    def play_card(self, card, player_idx):
+        print("Play Card")
+        self.deck.addCard(self.topStackCard)
+        self.deck.addCard(card)
+        print("After Add Card")
+        self.topStackCard = card
+        self.is_player_card_playable()
+        print("Before remove")
+        self.players[player_idx].deck.remove(card)
+        print("AFter remove")
+
+
     def start(self):
         self.isStarted = True
+        self.players[self.player_idx].should_play = True

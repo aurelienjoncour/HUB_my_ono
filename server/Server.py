@@ -18,7 +18,7 @@ class Server:
         self.server.listen(2)
         print("Listening on port %d" % self.port)
 
-    def handle_client(self, conn, player, gameId):
+    def handle_client(self, conn, playerId, gameId):
 
         while True:
             try:
@@ -26,15 +26,24 @@ class Server:
 
                 if gameId in self.games:
                     game = self.games[gameId]
-
-                    print("data receive: ", data)
+                    # print("NB card: ", len(game.deck.cards))
+                    # print("data receive: ", data)
                     if not data:
                         break
-                    else: 
+                    else:
+                        if data == "get":
+                            print("get")
                         if data == "play":
                             print("play")
+                        elif data != "get":
+                            print("Data:", data)
+                            for idx in range(len(game.players)):
+                                if game.players[idx].id == playerId:
+                                    game.play_card(game.players[idx].deck[int(data)], idx)
+
+                            print("End")
                         dump = pickle.dumps(game)
-                        print("Size:", len(dump))
+                        # print("Size:", len(dump))
                         conn.sendall(dump)
 
             except:
@@ -63,4 +72,4 @@ class Server:
         
         print("Active connnection:", self.nb_connection)
 
-        start_new_thread(self.handle_client, (conn, player, gameId))
+        start_new_thread(self.handle_client, (conn, playerId, gameId))
