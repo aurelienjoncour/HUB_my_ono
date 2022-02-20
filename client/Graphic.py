@@ -28,6 +28,8 @@ class Graphic:
 		self.screen = screen
 		self.hud = GameHUD(self.screen)
 		self.background_image = pygame.image.load("client/asset/my_uno_bg.png").convert()
+		self.clockwise = pygame.image.load(f"client/asset/arrow/uno_clockwise.png")
+		self.anticlockwise = pygame.image.load(f"client/asset/arrow/uno_anticlockwise.png")
 
 	def mainLoop(self, network, player_id):
 		self.network = network
@@ -42,6 +44,10 @@ class Graphic:
 				break
 			self.screen.fill((255, 255, 255))
 			self.screen.blit(self.background_image, [0, 0])
+			if game.play_sense == 1:
+				self.screen.blit(self.clockwise, [(self.infoObject.current_w - 244) / 2 , (self.infoObject.current_h - 272) / 2 ])
+			else:
+				self.screen.blit(self.anticlockwise, [(self.infoObject.current_w - 244) / 2 , (self.infoObject.current_h - 272) / 2 ])
 			for player in game.players:
 				if player_id == player.id:
 					self.hud.player(player, self.player_pos)

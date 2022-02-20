@@ -5,7 +5,7 @@ class Game:
 
     def __init__(self, id) -> None:
         self.players = []
-        self.nbPlayer = 0
+        self.nbPlayer = 1
         self.deck = Deck()
         self.topStackCard = None
         self.gameId = id
