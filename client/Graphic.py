@@ -57,4 +57,8 @@ class Graphic:
 					self.isrunning = False
 				if event.type == pygame.MOUSEBUTTONDOWN:
 					#if event.button == 1:
-					self.hud.clickOnCard()
+					cardIdx = self.hud.clickOnCard()
+					if cardIdx != None:
+						for player in game.players:
+							if player_id == player.id:
+								print(player.deck[cardIdx].playable)

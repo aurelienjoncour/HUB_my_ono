@@ -44,3 +44,15 @@ class Card:
             self.value = card
             self.color = color
             self.filepath = f"uno_{self.colors[color]}_{self.regular[card]}.png"
+        self.playable = False
+
+    def is_playable(self, card):
+        if self.color == card.color or self.value == card.value:
+            print("True: ", self.filepath)
+            self.playable = True
+        elif self.color == None:
+            print("True: ", self.filepath)
+            self.playable = True
+        else:
+            print("False: ", self.filepath)
+            self.playable = False

@@ -17,6 +17,7 @@ class Game:
         player.deck = self.deck.getCards(7)
         self.players.append(player)
         self.nbPlayer = len(self.players)
+        self.is_player_card_playable()
 
     def setTopStackCard(self):
         tmpCard = None
@@ -25,6 +26,11 @@ class Game:
                 self.deck.addCard(tmpCard)
             tmpCard = self.deck.getCards()[0]
             self.topStackCard = tmpCard
+        self.is_player_card_playable()
+
+    def is_player_card_playable(self):
+        for player in self.players:
+            player.updatePlayableCard(self.topStackCard)
 
     def start(self):
         self.isStarted = True
