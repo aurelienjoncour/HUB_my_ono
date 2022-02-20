@@ -61,6 +61,26 @@ class GameHUD:
         self.card_indicator(len(player.deck), pos)
         self.player_card_deck(player.deck, pos)
 
+    def all_players(self, players, playerId):
+        player_pos = (10, 10)
+        opponents_pos = [
+			(self.infoObject.current_w - self.card_w - 10, 10),
+			(self.infoObject.current_w - self.card_w - 10, self.infoObject.current_h - self.card_h - 50),
+			(10, self.infoObject.current_h - self.card_h - 50)
+		]
+        j = 0
+        for i in range(len(players)):
+            if players[i].id == playerId:
+                j = i
+                break
+        self.player(players[j], player_pos)    
+        j += 1
+        for i in range(len(players) - 1):
+            if (j == len(players)):
+                j = 0
+            self.opponent(players[j], opponents_pos[i])
+            j += 1
+
     def draw_arrow(self):
         #TODO: display arrow that show
         print("draw arrow")
