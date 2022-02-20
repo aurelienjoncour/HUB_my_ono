@@ -25,11 +25,15 @@ class GameHUD:
         else:
             self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0], pos[1] + 100))
 
-    def player_name(self, name, pos):
+    def player_name(self, player, pos):
+        color = (255, 255, 255)
+        if player.should_play:
+            color = (0, 0, 255)
+
         if self.is_right_side(pos):
-            self.screen.blit(self.font_name.render(name, True, (255,255,255)), (pos[0] - 200, pos[1] + 100))
+            self.screen.blit(self.font_name.render(player.name, True, color), (pos[0] - 200, pos[1] + 100))
         else:
-            self.screen.blit(self.font_name.render(name, True, (255,255,255)), (pos[0] + 40, pos[1] + 100))
+            self.screen.blit(self.font_name.render(player.name, True, color), (pos[0] + 40, pos[1] + 100))
 
     def opponent_card_deck(self, cardList, pos):
         _pos = list(pos)
@@ -52,12 +56,12 @@ class GameHUD:
         self.cards.display(card.filepath, ((self.infoObject.current_w - self.card_w) / 2 , (self.infoObject.current_h - self.card_h) / 2 ))
 
     def opponent(self, oponent, pos):
-        self.player_name(oponent.name, pos)
+        self.player_name(oponent, pos)
         self.card_indicator(len(oponent.deck), pos)
         self.opponent_card_deck(oponent.deck, pos)
 
     def player(self, player, pos):
-        self.player_name(player.name, pos)
+        self.player_name(player, pos)
         self.card_indicator(len(player.deck), pos)
         self.player_card_deck(player.deck, pos)
 
