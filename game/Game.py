@@ -42,6 +42,7 @@ class Game:
                     self.is_player_card_playable()
 
     def setIndexToNextPlayer(self, shouldSkip = False):
+        self.players[self.player_idx].should_play = False
         if self.play_sense:
             if self.player_idx + 1 == self.nbPlayer:
                 self.player_idx = 0
@@ -60,7 +61,6 @@ class Game:
     def play_card(self, card, player_idx):
         print("Play Card")
         self.deck.addCard(self.topStackCard)
-        self.deck.addCard(card)
         print("After Add Card")
         self.topStackCard = card
         self.is_player_card_playable()
