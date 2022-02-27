@@ -64,3 +64,8 @@ class Card:
         if type(self.value) == Bonus:
             self.color = color
             self.filepath = f"uno_{self.special[self.value]}_{self.colors[color]}.png"
+
+    def reset_bonus_color(self):
+        if type(self.value) == Bonus:
+            self.color = None
+            self.filepath = f"uno_{self.special[self.value]}.png"

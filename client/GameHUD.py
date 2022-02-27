@@ -1,4 +1,4 @@
-from distutils.log import info
+from game.Card import Color
 from client.Cards import Cards
 import pygame
 
@@ -15,6 +15,33 @@ class GameHUD:
         self.clockwise = pygame.image.load(f"client/asset/arrow/uno_clockwise.png")
         self.anticlockwise = pygame.image.load(f"client/asset/arrow/uno_anticlockwise.png")
         pygame.display.set_caption('My Ono')
+        self.posY = self.infoObject.current_h / 2 - 50
+        self.posX = self.infoObject.current_w / 2 - 50
+        self.rect_red = pygame.Rect(self.posX, self.posY, 50, 50)
+        self.rect_green = pygame.Rect(self.posX + 50, self.posY, 50, 50)
+        self.rect_blue = pygame.Rect(self.posX, self.posY + 50, 50, 50)
+        self.rect_yellow = pygame.Rect(self.posX + 50, self.posY + 50, 50, 50)
+
+    def get_color_choice(self):
+        if self.rect_red.collidepoint(pygame.mouse.get_pos()):
+            return Color.RED
+        if self.rect_green.collidepoint(pygame.mouse.get_pos()):
+            return Color.GREEN
+        if self.rect_blue.collidepoint(pygame.mouse.get_pos()):
+            return Color.BLUE
+        if self.rect_yellow.collidepoint(pygame.mouse.get_pos()):
+            return Color.YELLOW
+        return None
+
+    def color_choice(self):
+        red = pygame.Color("red")
+        green = pygame.Color("green")
+        yellow = pygame.Color("yellow")
+        blue = pygame.Color("blue")
+        pygame.draw.rect(self.screen, red, self.rect_red)
+        pygame.draw.rect(self.screen, green, self.rect_green)
+        pygame.draw.rect(self.screen, blue, self.rect_blue)
+        pygame.draw.rect(self.screen, yellow, self.rect_yellow)
 
     def is_right_side(self, pos):
         if pos[0] < (self.infoObject.current_w / 2):

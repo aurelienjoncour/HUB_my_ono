@@ -13,6 +13,9 @@ class Graphic:
 	hud = None 		#Class for game display handling
 	network = None  #Class for network handling
 	background_image = None
+	choose_color = False
+	color = None
+	cardIdx = None
 	flags = pygame.RESIZABLE
 	clock = pygame.time.Clock()
 
@@ -27,10 +30,17 @@ class Graphic:
 			if self.player_id == player.id:
 				return player
 
-	def play(self, cardIdx):
+	def play(self):
 		player = self.get_player()
-		if player.should_play and player.deck[cardIdx].playable:
-			self.game = self.network.send(str(cardIdx))
+		if player.should_play and player.deck[self.cardIdx].playable:
+			if self.choose_color == True:
+				self.network.send(str(self.cardIdx) + ":" + str(int(self.color)))
+				self.color = None
+				self.choose_color = False
+			elif player.deck[self.cardIdx].color == None:
+				self.choose_color = True
+			else:
+				self.game = self.network.send(str(self.cardIdx))
 
 	def mainLoop(self, network, player_id):
 		self.network = network
@@ -48,12 +58,20 @@ class Graphic:
 			self.hud.draw_arrow(self.game.play_sense)
 			self.hud.all_players(self.game.players, player_id)
 			self.hud.top_stack_card(self.game.topStackCard)
+			if self.choose_color:
+				self.hud.color_choice()
 			pygame.display.flip()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					self.isrunning = False
 				if event.type == pygame.MOUSEBUTTONDOWN:
 					if event.button == 1:
-						cardIdx = self.hud.clickOnCard()
-						if cardIdx != None:
-							self.play(cardIdx)
+						if self.choose_color:
+							self.color = self.hud.get_color_choice()
+							if self.color != None:
+								print("Color choice: ", self.color)
+								self.play()
+						else:
+							self.cardIdx = self.hud.clickOnCard()
+							if self.cardIdx != None:
+								self.play()

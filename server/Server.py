@@ -31,15 +31,20 @@ class Server:
                     if not data:
                         break
                     else:
-                        if data == "get":
-                            print("get")
-                        if data == "play":
-                            print("play")
-                        elif data != "get":
-                            print("Data:", data)
+                        # if data == "get":
+                        #     print("get")
+                        # if data == "play":
+                        #     print("play")
+                        if data != "get":
+                            parsed = data.split(":")
+                            if len(parsed) == 2:
+                                print(parsed)
                             for idx in range(len(game.players)):
                                 if game.players[idx].id == playerId:
-                                    game.play_card(game.players[idx].deck[int(data)], idx)
+                                    if len(parsed) == 2:
+                                        game.play_card(game.players[idx].deck[int(parsed[0])], idx, int(parsed[1]))
+                                    else:
+                                        game.play_card(game.players[idx].deck[int(parsed[0])], idx, None)
 
                             print("End")
                         dump = pickle.dumps(game)
