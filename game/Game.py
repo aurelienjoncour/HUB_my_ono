@@ -73,3 +73,4 @@ class Game:
     def start(self):
         self.isStarted = True
         self.players[self.player_idx].should_play = True
+        self.add_card_if_not_playable()
