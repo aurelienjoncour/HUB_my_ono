@@ -18,12 +18,9 @@ class Graphic:
 
 	def __init__(self, screen) -> None:
 		pygame.init()
-		self.infoObject = pygame.display.Info()
 		self.screen = screen
 		self.hud = GameHUD(self.screen)
 		self.background_image = pygame.image.load("client/asset/my_uno_bg.png").convert()
-		self.clockwise = pygame.image.load(f"client/asset/arrow/uno_clockwise.png")
-		self.anticlockwise = pygame.image.load(f"client/asset/arrow/uno_anticlockwise.png")
 
 	def get_player(self):
 		for player in self.game.players:
@@ -48,11 +45,7 @@ class Graphic:
 				break
 			self.screen.fill((255, 255, 255))
 			self.screen.blit(self.background_image, [0, 0])
-			if self.game.play_sense == 1:
-				self.screen.blit(self.clockwise, [(self.infoObject.current_w - 244) / 2 , (self.infoObject.current_h - 272) / 2 ])
-			else:
-				self.screen.blit(self.anticlockwise, [(self.infoObject.current_w - 244) / 2 , (self.infoObject.current_h - 272) / 2 ])
-
+			self.hud.draw_arrow(self.game.play_sense)
 			self.hud.all_players(self.game.players, player_id)
 			self.hud.top_stack_card(self.game.topStackCard)
 			pygame.display.flip()

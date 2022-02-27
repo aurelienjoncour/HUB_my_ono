@@ -12,7 +12,9 @@ class GameHUD:
         self.screen = screen
         self.font_name = pygame.font.SysFont('Arial', 25)
         self.font_nb_card = pygame.font.SysFont('Arial', 50)
-        pygame.display.set_caption('Box Test')
+        self.clockwise = pygame.image.load(f"client/asset/arrow/uno_clockwise.png")
+        self.anticlockwise = pygame.image.load(f"client/asset/arrow/uno_anticlockwise.png")
+        pygame.display.set_caption('My Ono')
 
     def is_right_side(self, pos):
         if pos[0] < (self.infoObject.current_w / 2):
@@ -68,16 +70,16 @@ class GameHUD:
     def all_players(self, players, playerId):
         player_pos = (10, 10)
         opponents_pos = [
-			(self.infoObject.current_w - self.card_w - 10, 10),
-			(self.infoObject.current_w - self.card_w - 10, self.infoObject.current_h - self.card_h - 50),
-			(10, self.infoObject.current_h - self.card_h - 50)
-		]
+            (self.infoObject.current_w - self.card_w - 10, 10),
+            (self.infoObject.current_w - self.card_w - 10, self.infoObject.current_h - self.card_h - 50),
+            (10, self.infoObject.current_h - self.card_h - 50)
+        ]
         j = 0
         for i in range(len(players)):
             if players[i].id == playerId:
                 j = i
                 break
-        self.player(players[j], player_pos)    
+        self.player(players[j], player_pos)
         j += 1
         for i in range(len(players) - 1):
             if (j == len(players)):
@@ -85,9 +87,11 @@ class GameHUD:
             self.opponent(players[j], opponents_pos[i])
             j += 1
 
-    def draw_arrow(self):
-        #TODO: display arrow that show
-        print("draw arrow")
+    def draw_arrow(self, play_sense):
+        if play_sense == 1:
+            self.screen.blit(self.clockwise, [(self.infoObject.current_w - 244) / 2, (self.infoObject.current_h - 272) / 2])
+        else:
+            self.screen.blit(self.anticlockwise, [(self.infoObject.current_w - 244) / 2, (self.infoObject.current_h - 272) / 2])
 
     def clickOnCard(self):
         carte_idx = None
