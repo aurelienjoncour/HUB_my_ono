@@ -47,12 +47,20 @@ class Card:
         self.playable = False
 
     def is_playable(self, card):
-        if self.color == card.color or self.value == card.value:
+        if type(card.value) == Value and self.value == card.value:
             print("True: ", self.filepath)
             self.playable = True
-        elif self.color == None:
+        elif type(card.color) == Color and self.color == card.color:
+            print("True: ", self.filepath)
+            self.playable = True
+        elif type(self.value) == Bonus:
             print("True: ", self.filepath)
             self.playable = True
         else:
             print("False: ", self.filepath)
             self.playable = False
+
+    def change_bonus_color(self, color):
+        if type(self.value) == Bonus:
+            self.color = color
+            self.filepath = f"uno_{self.special[self.value]}_{self.colors[color]}.png"
