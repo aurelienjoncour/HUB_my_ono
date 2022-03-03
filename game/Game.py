@@ -17,6 +17,19 @@ class Game:
         self.player_idx = 0
         self.setTopStackCard()
 
+    def gameToDict(self):
+        players = []
+        for player in self.players:
+            players.append(player.playerToDict())
+
+        return {
+            "players": players,
+            "topStackCard": {
+                "filepath": self.topStackCard.filepath
+            },
+            "play_sense": self.play_sense
+        }
+
     def addPlayer(self, name, player_id):
         player = Player(name, player_id)
         player.deck = self.deck.getCards(7)

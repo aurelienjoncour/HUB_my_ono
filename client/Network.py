@@ -1,5 +1,6 @@
 import socket
 import pickle
+import json
 
 class Network:
     def __init__(self, ip_address, port):
@@ -20,6 +21,7 @@ class Network:
         try:
             self.client.send(str.encode(data))
             receive = self.client.recv(2048*4)
-            return pickle.loads(receive)
+            # return pickle.loads(receive)
+            return json.loads(receive)
         except socket.error as e:
             print(e)

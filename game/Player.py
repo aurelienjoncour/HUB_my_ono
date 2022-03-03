@@ -14,3 +14,15 @@ class Player:
     def updatePlayableCard(self, top_card):
         for card in self.deck:
             card.is_playable(top_card)
+
+    def playerToDict(self):
+        deck = []
+        for card in self.deck:
+            deck.append(card.cardToDict())
+
+        return {
+            "name": self.name,
+            "id": self.id,
+            "should_play": self.should_play,
+            "deck": deck
+        }

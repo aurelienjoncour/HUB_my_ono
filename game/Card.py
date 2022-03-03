@@ -69,3 +69,9 @@ class Card:
         if type(self.value) == Bonus:
             self.color = None
             self.filepath = f"uno_{self.special[self.value]}.png"
+
+    def cardToDict(self):
+        return {
+            "filepath": self.filepath,
+            "playable": self.playable,
+        }

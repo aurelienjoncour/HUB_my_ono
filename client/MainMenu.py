@@ -13,7 +13,7 @@ class MainMenu:
     name_field = InputField({"x": 100, "y": 100},
     {"width": 140, "height": 32}, "pseudo")
     server_field = InputField({"x": 100, "y": 200}, 
-    {"width": 140, "height": 32}, "server")
+    {"width": 140, "height": 32}, "127.0.0.1")
     button_click = Button({"x": 200, "y": 300},
     {"width": 140, "height": 32}, "play")
     text_fields = [name_field, server_field]

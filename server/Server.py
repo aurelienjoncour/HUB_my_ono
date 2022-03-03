@@ -3,6 +3,7 @@ import pickle
 from game.Game import Game
 from random import randrange
 import socket
+import json
 
 class Server:
     def __init__(self, address, port):
@@ -47,9 +48,11 @@ class Server:
                                         game.play_card(game.players[idx].deck[int(parsed[0])], idx, None)
 
                             print("End")
-                        dump = pickle.dumps(game)
+                        gameDict = game.gameToDict()
+                        data = json.dumps(gameDict)
+                        # dump = pickle.dumps(game)
                         # print("Size:", len(dump))
-                        conn.sendall(dump)
+                        conn.send(data.encode())
 
             except:
                 break

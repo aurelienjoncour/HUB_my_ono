@@ -55,9 +55,9 @@ class Graphic:
 				break
 			self.screen.fill((255, 255, 255))
 			self.screen.blit(self.background_image, [0, 0])
-			self.hud.draw_arrow(self.game.play_sense)
-			self.hud.all_players(self.game.players, player_id)
-			self.hud.top_stack_card(self.game.topStackCard)
+			self.hud.draw_arrow(self.game["play_sense"])
+			self.hud.all_players(self.game["players"], player_id)
+			self.hud.top_stack_card(self.game["topStackCard"])
 			if self.choose_color:
 				self.hud.color_choice()
 			pygame.display.flip()
