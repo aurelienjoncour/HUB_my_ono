@@ -48,6 +48,11 @@ class GameHUD:
             return False
         return True
 
+    def chose_color(self):
+        self.screen.blit(self.chose_frame, [(self.infoObject.current_w - 140) / 2 , (self.infoObject.current_h - 140) / 2 ])
+        pygame.draw.rect(self.screen,(255,255,0),((self.infoObject.current_w - 131) / 2, (self.infoObject.current_h - 128) / 2, 64, 64))
+
+
     def card_indicator(self, nb, pos):
         if self.is_right_side(pos):
             self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0] + 32, pos[1] + 100))
