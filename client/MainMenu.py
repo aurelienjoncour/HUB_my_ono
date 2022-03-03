@@ -35,6 +35,7 @@ class MainMenu:
             if self.button_click.button_state:
                 self.run = False
                 self.player_name = self.name_field.text
+                self.ip_address = self.server_field.text
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.should_exit = True
