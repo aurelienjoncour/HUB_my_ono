@@ -74,4 +74,5 @@ class Card:
         return {
             "filepath": self.filepath,
             "playable": self.playable,
+            "color": self.color
         }
