@@ -23,7 +23,7 @@ class Graphic:
 		pygame.init()
 		self.screen = screen
 		self.hud = GameHUD(self.screen)
-		self.background_image = pygame.image.load("client/asset/my_uno_bg.png").convert()
+		self.background_image = pygame.image.load("asset/my_uno_bg.png").convert()
 
 	def get_player(self):
 		for player in self.game["players"]:

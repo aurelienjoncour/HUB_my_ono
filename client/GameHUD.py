@@ -12,9 +12,11 @@ class GameHUD:
         self.screen = screen
         self.font_name = pygame.font.SysFont('Arial', 25)
         self.font_nb_card = pygame.font.SysFont('Arial', 50)
-        self.clockwise = pygame.image.load(f"client/asset/arrow/uno_clockwise.png")
-        self.anticlockwise = pygame.image.load(f"client/asset/arrow/uno_anticlockwise.png")
+        self.clockwise = pygame.image.load(f"asset/arrow/uno_clockwise.png")
+        self.anticlockwise = pygame.image.load(f"asset/arrow/uno_anticlockwise.png")
+        self.icon = pygame.image.load(f"asset/logo.png")
         pygame.display.set_caption('My Ono')
+        pygame.display.set_icon(self.icon)
         self.posY = self.infoObject.current_h / 2 - 50
         self.posX = self.infoObject.current_w / 2 - 50
         self.rect_red = pygame.Rect(self.posX, self.posY, 50, 50)
