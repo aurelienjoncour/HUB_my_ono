@@ -1,8 +1,15 @@
 #!/usr/bin/env python3
+#  pyinstaller.exe --clean --log-level DEBUG --noconsole --onefile --windowed --icon=./asset/logo.png ./main.spec
+
 
 import pygame
 
-pygame.init()
+# pygame.init()
+
+import os, sys
+
+if getattr(sys, 'frozen', False):
+    os.chdir(sys._MEIPASS)
 
 from client.MainMenu import MainMenu
 from client.Graphic import Graphic

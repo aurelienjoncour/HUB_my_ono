@@ -20,7 +20,7 @@ class Graphic:
 	clock = pygame.time.Clock()
 
 	def __init__(self, screen) -> None:
-		pygame.init()
+		# pygame.init()
 		self.screen = screen
 		self.hud = GameHUD(self.screen)
 		self.background_image = pygame.image.load("asset/my_uno_bg.png").convert()

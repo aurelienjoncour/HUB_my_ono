@@ -1,3 +1,7 @@
+import pygame
+
+pygame.init()
+
 from client.Button import Button
 from client.InputField import InputField
 from client.MainMenu import MainMenu

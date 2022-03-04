@@ -2,9 +2,8 @@ import pygame
 
 class Button:
 
-    FONT = pygame.font.Font(None, 32)
-
     def __init__(self, pos, size, text = "") -> None:
+        self.FONT = pygame.font.SysFont('Arial', 32)
         self.text = text
         self.rect = pygame.Rect(pos["x"], pos["y"],
                                 size["width"], size["height"])
