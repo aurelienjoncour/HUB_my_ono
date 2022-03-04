@@ -66,7 +66,10 @@ class Graphic:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
 					self.isrunning = False
-				if event.type == pygame.MOUSEBUTTONDOWN:
+				elif event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_ESCAPE:
+						self.isrunning = False
+				elif event.type == pygame.MOUSEBUTTONDOWN:
 					if event.button == 1:
 						if self.choose_color:
 							self.color = self.hud.get_color_choice()
