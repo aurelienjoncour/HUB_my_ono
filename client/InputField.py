@@ -8,6 +8,7 @@ class InputField:
     def __init__(self, pos, size, text = "") -> None:
         self.FONT = pygame.font.SysFont('Arial', 32)
         self.text = text
+        self.size = size
         self.rect = pygame.Rect(pos["x"], pos["y"], 
                                 size["width"], size["height"])
         self.color = self.COLOR_INACTIVE
@@ -35,7 +36,7 @@ class InputField:
             self.text_surface = self.FONT.render(self.text, True, self.color)
 
     def update(self):
-        self.rect.w = max(200, self.text_surface.get_width()+10)
+        self.rect.w = max(self.size["width"], self.text_surface.get_width()+10)
 
     def draw(self, screen):
         screen.blit(self.text_surface, (self.rect.x + 5, self.rect.y + 5))
