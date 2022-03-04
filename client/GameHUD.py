@@ -59,6 +59,11 @@ class GameHUD:
         else:
             self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0], pos[1] + 100))
 
+    def show_win(self, players):
+        for player in players:
+            if player["should_play"]:
+                self.screen.blit(self.font_name.render(player["name"] + " as won the game !", True, (0, 0, 0)), (500, 10))
+
     def player_name(self, player, pos):
         color = (255, 255, 255)
         if player["should_play"]:

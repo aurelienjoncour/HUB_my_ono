@@ -13,6 +13,7 @@ class Game:
         self.topStackCard = None
         self.gameId = id
         self.isStarted = False
+        self.won = False
         self.play_sense = 1
         self.player_idx = 0
         self.setTopStackCard()
@@ -27,7 +28,8 @@ class Game:
             "topStackCard": {
                 "filepath": self.topStackCard.filepath
             },
-            "play_sense": self.play_sense
+            "play_sense": self.play_sense,
+            "won": self.won
         }
 
     def addPlayer(self, name, player_id):
@@ -79,6 +81,11 @@ class Game:
         self.topStackCard.reset_bonus_color()
         self.deck.addCard(self.topStackCard)                    #On ajoute la carte joué dans le deck commun
         self.players[player_idx].deck.remove(card)              #On supprime la carte joué du deck du joueur
+        if len(self.players[player_idx].deck) == 0:
+            print(self.players[player_idx].name + " won !")
+            self.won = True
+            return
+
         if type(card.value) == Bonus and card.color == None:    #Si la carte est une bonus on change ça couleur
             card.change_bonus_color(Color(color))
         self.topStackCard = card

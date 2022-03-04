@@ -60,6 +60,8 @@ class Graphic:
 			self.hud.top_stack_card(self.game["topStackCard"])
 			if self.choose_color:
 				self.hud.color_choice()
+			if self.game["won"]:
+				self.hud.show_win(self.game["players"])
 			pygame.display.flip()
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
