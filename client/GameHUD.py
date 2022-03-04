@@ -1,4 +1,3 @@
-from game.Card import Color
 from client.Cards import Cards
 import pygame
 
@@ -26,13 +25,13 @@ class GameHUD:
 
     def get_color_choice(self):
         if self.rect_red.collidepoint(pygame.mouse.get_pos()):
-            return Color.RED
+            return 0
         if self.rect_green.collidepoint(pygame.mouse.get_pos()):
-            return Color.GREEN
+            return 1
         if self.rect_blue.collidepoint(pygame.mouse.get_pos()):
-            return Color.BLUE
+            return 2
         if self.rect_yellow.collidepoint(pygame.mouse.get_pos()):
-            return Color.YELLOW
+            return 3
         return None
 
     def color_choice(self):

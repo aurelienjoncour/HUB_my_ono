@@ -1,8 +1,8 @@
-from game.Deck import Deck
-from game.Player import Player
-from game.Card import Value
-from game.Card import Bonus
-from game.Card import Color
+from server.Deck import Deck
+from server.Player import Player
+from server.Card import Value
+from server.Card import Bonus
+from server.Card import Color
 
 class Game:
 

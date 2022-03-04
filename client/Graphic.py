@@ -34,7 +34,7 @@ class Graphic:
 		player = self.get_player()
 		if player["should_play"] and player["deck"][self.cardIdx]["playable"]:
 			if self.choose_color == True:
-				self.network.send(str(self.cardIdx) + ":" + str(int(self.color)))
+				self.network.send(str(self.cardIdx) + ":" + str(self.color))
 				self.color = None
 				self.choose_color = False
 			elif player["deck"][self.cardIdx]["color"] == None:

@@ -1,6 +1,6 @@
 from _thread import *
 import pickle
-from game.Game import Game
+from server.Game import Game
 from random import randrange
 import socket
 import json
