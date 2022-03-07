@@ -59,6 +59,7 @@ class Graphic:
 			self.hud.all_players(self.game["players"], player_id)
 			self.hud.top_stack_card(self.game["topStackCard"])
 			self.hud.draw_game_button(self.game["ask_bluff"] == self.player_id)
+			self.hud.counter()
 			if self.choose_color:
 				self.hud.color_choice()
 			if self.game["won"]:
@@ -82,6 +83,7 @@ class Graphic:
 							if self.cardIdx != None:
 								self.play()
 				buttons_state = self.hud.event_handler(event, self.game["ask_bluff"] == self.player_id)
+				self.hud.eventButtonCounter(event)
 				if buttons_state != None:
 					if buttons_state["denounce"]:
 						self.game = self.network.send("denounce")

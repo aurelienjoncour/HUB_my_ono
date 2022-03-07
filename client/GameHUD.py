@@ -14,6 +14,8 @@ class GameHUD:
         self.font_nb_card = pygame.font.SysFont('Arial', 50)
         self.clockwise = pygame.image.load(f"asset/arrow/uno_clockwise.png")
         self.anticlockwise = pygame.image.load(f"asset/arrow/uno_anticlockwise.png")
+        self.counter_ono = pygame.image.load(f"asset/counter_ono_button.png")
+        self.counter_ono_rect = pygame.Rect((self.infoObject.current_w - 128) / 12, (self.infoObject.current_h - 128) / 2, 128, 128)
         self.icon = pygame.image.load(f"asset/logo.png")
         pygame.display.set_caption('My Ono')
         pygame.display.set_icon(self.icon)
@@ -128,7 +130,7 @@ class GameHUD:
         for i in range(len(players) - 1):
             if (j == len(players)):
                 j = 0
-            self.opponent(players[j], opponents_pos[i])
+            self.opponent(opponents_pos[j], opponents_pos[i])
             j += 1
 
     def draw_arrow(self, play_sense):
@@ -162,3 +164,11 @@ class GameHUD:
             if self.card_pos[i].collidepoint(pygame.mouse.get_pos()):
                 carte_idx = i
         return carte_idx
+
+    def counter(self):
+        self.screen.blit(self.counter_ono, [(self.infoObject.current_w - 128) / 12, (self.infoObject.current_h - 128) / 2])
+
+    def eventButtonCounter(self, event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.counter_ono_rect.collidepoint(pygame.mouse.get_pos()):
+                print("UNO")
