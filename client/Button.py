@@ -3,7 +3,7 @@ import pygame
 class Button:
 
     def __init__(self, pos, size, text = "") -> None:
-        self.FONT = pygame.font.SysFont('Arial', 32)
+        self.FONT = pygame.font.SysFont('Arial', 22)
         self.text = text
         self.rect = pygame.Rect(pos["x"], pos["y"],
                                 size["width"], size["height"])
