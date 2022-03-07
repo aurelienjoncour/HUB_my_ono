@@ -18,4 +18,7 @@ class Button:
 
     def draw(self, screen):
         screen.blit(self.text_surface, (self.rect.x + 5, self.rect.y + 5))
-        pygame.draw.rect(screen, self.color, self.rect, 2)
+        if self.button_state:
+            pygame.draw.rect(screen, self.color, self.rect, 2)
+        else:
+            pygame.draw.rect(screen, pygame.Color("black"), self.rect, 2)

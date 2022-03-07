@@ -1,4 +1,5 @@
 from client.Cards import Cards
+from client.Button import Button
 import pygame
 
 class GameHUD:
@@ -18,6 +19,8 @@ class GameHUD:
         pygame.display.set_icon(self.icon)
         self.posY = self.infoObject.current_h / 2 - 50
         self.posX = self.infoObject.current_w / 2 - 50
+        self.button_denounce = Button({"x": self.infoObject.current_w / 2 - 180, "y": (self.infoObject.current_h - 272) / 2 - 40}, {"width": 180, "height": 32}, "Dénoncer !")
+        self.button_skip = Button({"x": self.infoObject.current_w / 2 + 20, "y": (self.infoObject.current_h - 272) / 2 - 40}, {"width": 180, "height": 32}, "Passer !")
         self.rect_red = pygame.Rect(self.posX, self.posY, 50, 50)
         self.rect_green = pygame.Rect(self.posX + 50, self.posY, 50, 50)
         self.rect_blue = pygame.Rect(self.posX, self.posY + 50, 50, 50)
@@ -130,6 +133,24 @@ class GameHUD:
             self.screen.blit(self.clockwise, [(self.infoObject.current_w - 244) / 2, (self.infoObject.current_h - 272) / 2])
         else:
             self.screen.blit(self.anticlockwise, [(self.infoObject.current_w - 244) / 2, (self.infoObject.current_h - 272) / 2])
+
+    def draw_game_button(self, ask_bluff):
+        if ask_bluff:
+            self.button_denounce.draw(self.screen)
+            self.button_skip.draw(self.screen)
+
+    def event_handler(self, event, ask_bluff):
+        if ask_bluff:
+            self.button_denounce.event_handler(event)
+            self.button_skip.event_handler(event)
+            state = {
+                "denounce": self.button_denounce.button_state,
+                "skip": self.button_skip.button_state
+            }
+            self.button_denounce.button_state = False
+            self.button_skip.button_state = False
+            return state
+        return None
 
     def clickOnCard(self):
         carte_idx = None

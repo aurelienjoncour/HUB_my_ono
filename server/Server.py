@@ -32,11 +32,11 @@ class Server:
                     if not data:
                         break
                     else:
-                        # if data == "get":
-                        #     print("get")
-                        # if data == "play":
-                        #     print("play")
-                        if data != "get":
+                        if data == "denounce":
+                            game.handle_bluff(True)
+                        elif data == "dontdenonce":
+                            game.handle_bluff(False)
+                        elif data != "get":
                             parsed = data.split(":")
                             if len(parsed) == 2:
                                 print(parsed)
