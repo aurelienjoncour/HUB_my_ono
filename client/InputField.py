@@ -6,15 +6,15 @@ class InputField:
     COLOR_ACTIVE = pygame.Color('dodgerblue2')
 
     def __init__(self, pos, size, text = "") -> None:
-        self.FONT = pygame.font.SysFont('Arial', 32)
+        self.FONT = pygame.font.SysFont('Arial', 22)
         self.text = text
         self.size = size
-        self.rect = pygame.Rect(pos["x"], pos["y"], 
+        self.rect = pygame.Rect(pos["x"], pos["y"],
                                 size["width"], size["height"])
         self.color = self.COLOR_INACTIVE
         self.text_surface = self.FONT.render(text, True, self.color)
         self.active = False
-    
+
     def event_handler(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
