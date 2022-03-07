@@ -59,7 +59,10 @@ class GameHUD:
 
     def card_indicator(self, nb, pos):
         if self.is_right_side(pos):
-            self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0] + 32, pos[1] + 100))
+            if nb >= 10:
+                self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0], pos[1] + 100))
+            else:
+                self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0] + 32, pos[1] + 100))
         else:
             self.screen.blit(self.font_nb_card.render(str(nb), True, (255,255,255)), (pos[0], pos[1] + 100))
 
@@ -76,16 +79,16 @@ class GameHUD:
         if self.is_right_side(pos):
             self.screen.blit(self.font_name.render(player["name"], True, color), (pos[0] - 200, pos[1] + 100))
         else:
-            self.screen.blit(self.font_name.render(player["name"], True, color), (pos[0] + 40, pos[1] + 100))
+            self.screen.blit(self.font_name.render(player["name"], True, color), (pos[0] + 64, pos[1] + 100))
 
     def opponent_card_deck(self, cardList, pos):
         _pos = list(pos)
         for card in cardList:
             self.cards.display("uno_back.png", _pos)
             if self.is_right_side(pos):
-                _pos[0] = _pos[0] - 40
+                _pos[0] = _pos[0] - 20
             else:
-                _pos[0] = _pos[0] + 40
+                _pos[0] = _pos[0] + 20
 
     def player_card_deck(self, cardList, pos):
         _pos = list(pos)
