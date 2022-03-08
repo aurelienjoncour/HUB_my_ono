@@ -20,7 +20,7 @@ infoObject = pygame.display.Info()
 if platform.system() == "Windows":
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 else:
-    screen = pygame.display.set_mode((pygame.display.Info().current_w, pygame.display.Info().current_h), pygame.SCALED)
+    screen = pygame.display.set_mode((infoObject.current_w, infoObject.current_h), pygame.RESIZABLE)
 
 menu = MainMenu(screen)
 Main = Graphic(screen)
