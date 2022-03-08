@@ -22,6 +22,13 @@ class Network:
             self.client.send(str.encode(data))
             receive = self.client.recv(2048*4)
             # return pickle.loads(receive)
-            return json.loads(receive)
+            print("receive packet len: ", len(receive))
+            try:
+                load = json.loads(receive)
+            except json.decoder.JSONDecodeError:
+                print("String could not be converted to JSON: receive")
+                print(receive)
+                load = None
+            return load
         except socket.error as e:
             print(e)
