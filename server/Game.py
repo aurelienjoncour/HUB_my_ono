@@ -46,6 +46,32 @@ class Game:
         self.nbPlayer = len(self.players)
         self.is_player_card_playable()
 
+    def put_cards_in_deck(self, cards):
+        for card in cards:
+            self.deck.addCard(card)
+
+    def removePlayer(self, player_id):
+        should_change_player = False
+        next_player_idx = self.get_next_player()
+        next_player_id = None
+        for idx in range(len(self.players)):        #On cherche l'id du prochain joueur
+            if idx == next_player_idx:
+                next_player_id = self.players[idx].id
+
+        for idx in range(len(self.players)):       #on supprime le joueur de la liste
+            if self.players[idx].id == player_id:
+                if self.players[idx].should_play:
+                    should_change_player = True
+                self.put_cards_in_deck(self.players[idx].deck) #On vide les cartes dans le deck
+                self.players.pop(idx)
+                self.nbPlayer = len(self.players)
+                break
+        if should_change_player:
+            for idx in range(len(self.players)):        #on update le nouvel index et on set le prochain joueur qui doit jouer
+                if self.players[idx].id == next_player_id:
+                    self.player_idx = idx
+                    self.players[idx].should_play = True
+        
     def setTopStackCard(self):
         tmpCard = None
         while self.topStackCard == None or self.topStackCard.color == None:

@@ -1,5 +1,4 @@
 import socket
-import pickle
 import json
 import zlib
 
@@ -22,8 +21,6 @@ class Network:
         try:
             self.client.send(str.encode(data))
             receive = self.client.recv(2048*4)
-            # return pickle.loads(receive)
-            # print("receive packet len: ", len(receive))
             try:
                 decompress_data = zlib.decompress(receive)
                 load = json.loads(decompress_data)

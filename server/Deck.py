@@ -20,6 +20,7 @@ class Deck:
         return len(self.cards)
 
     def addCard(self, card):
+        shuffle(self.cards)
         if type(card) != Card:
             raise Exception("Card argument must be of type Card")
         self.cards.append(card)

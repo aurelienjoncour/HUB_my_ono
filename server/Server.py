@@ -1,5 +1,4 @@
 from _thread import *
-import pickle
 from server.Game import Game
 from random import randrange
 import socket
@@ -54,7 +53,6 @@ class Server:
                             print("End")
                         gameDict = game.gameToDict()
                         data = json.dumps(gameDict)
-                        # dump = pickle.dumps(game)
                         # print("Size:", len(data))
                         # print(data)
                         data = data.replace(" ", "")
@@ -68,6 +66,8 @@ class Server:
                 break
         print("Lost connection")
         self.nb_connection -= 1
+        game = self.games[gameId]
+        game.removePlayer(playerId)
         conn.close()
 
     def accept_client(self):
