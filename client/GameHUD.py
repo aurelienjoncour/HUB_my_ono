@@ -130,7 +130,7 @@ class GameHUD:
         for i in range(len(players) - 1):
             if (j == len(players)):
                 j = 0
-            self.opponent(opponents_pos[j], opponents_pos[i])
+            self.opponent(players[j], opponents_pos[i])
             j += 1
 
     def draw_arrow(self, play_sense):
