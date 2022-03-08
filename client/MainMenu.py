@@ -47,6 +47,10 @@ class MainMenu:
                 if event.type == pygame.QUIT:
                     self.should_exit = True
                     self.run = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.should_exit = True
+                        self.run = False
                 for field in self.text_fields:
                     field.event_handler(event)
                 self.button_click.event_handler(event)
