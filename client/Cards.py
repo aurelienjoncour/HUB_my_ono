@@ -41,8 +41,8 @@ class Cards:
 
     def display_player(self, card, pos):
         if card["playable"]:
-            self.screen.blit(self.cards[str(card["filepath"])], pos)
+            self.screen.blit(self.cards[str(card["fp"])], pos)
         else:
-            bad_card = self.cards[str(card["filepath"])].copy()
+            bad_card = self.cards[str(card["fp"])].copy()
             bad_card.fill((180, 180, 180), special_flags=pygame.BLEND_RGB_SUB)
             self.screen.blit(bad_card, pos)

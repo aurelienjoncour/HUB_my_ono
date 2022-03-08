@@ -101,7 +101,7 @@ class GameHUD:
             _pos[0] += 40
 
     def top_stack_card(self, card):
-        self.cards.display(card["filepath"], ((self.infoObject.current_w - self.card_w) / 2 , (self.infoObject.current_h - self.card_h) / 2 ))
+        self.cards.display(card["fp"], ((self.infoObject.current_w - self.card_w) / 2 , (self.infoObject.current_h - self.card_h) / 2 ))
 
     def opponent(self, oponent, pos):
         self.player_name(oponent, pos)

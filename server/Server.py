@@ -4,6 +4,7 @@ from server.Game import Game
 from random import randrange
 import socket
 import json
+import zlib
 
 class Server:
     def __init__(self, address, port):
@@ -16,19 +17,18 @@ class Server:
         self.games = {}
 
     def listen(self):
-        self.server.listen(2)
+        self.server.listen(10)
         print("Listening on port %d" % self.port)
 
     def handle_client(self, conn, playerId, gameId):
 
         while True:
             try:
+                # print("data:")
                 data = conn.recv(4096).decode()
-
+                # print("->", data)
                 if gameId in self.games:
                     game = self.games[gameId]
-                    # print("NB card: ", len(game.deck.cards))
-                    # print("data receive: ", data)
                     if not data:
                         break
                     else:
@@ -55,8 +55,14 @@ class Server:
                         gameDict = game.gameToDict()
                         data = json.dumps(gameDict)
                         # dump = pickle.dumps(game)
-                        # print("Size:", len(dump))
-                        conn.send(data.encode())
+                        # print("Size:", len(data))
+                        # print(data)
+                        data = data.replace(" ", "")
+                        # print("New size: ", len(data))
+                        # print(data)
+                        compressed_data = zlib.compress(data.encode(), 2)
+                        # print("Compressed data:", len(compressed_data))
+                        conn.send(compressed_data)
 
             except:
                 break

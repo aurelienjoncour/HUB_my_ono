@@ -31,7 +31,7 @@ class Game:
         return {
             "players": players,
             "topStackCard": {
-                "filepath": self.topStackCard.filepath
+                "fp": self.topStackCard.filepath
             },
             "play_sense": self.play_sense,
             "won": self.won,

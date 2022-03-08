@@ -72,7 +72,7 @@ class Card:
 
     def cardToDict(self):
         return {
-            "filepath": self.filepath,
+            "fp": self.filepath,
             "playable": self.playable,
             "color": self.color
         }

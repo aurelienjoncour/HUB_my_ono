@@ -1,6 +1,7 @@
 import socket
 import pickle
 import json
+import zlib
 
 class Network:
     def __init__(self, ip_address, port):
@@ -22,9 +23,10 @@ class Network:
             self.client.send(str.encode(data))
             receive = self.client.recv(2048*4)
             # return pickle.loads(receive)
-            print("receive packet len: ", len(receive))
+            # print("receive packet len: ", len(receive))
             try:
-                load = json.loads(receive)
+                decompress_data = zlib.decompress(receive)
+                load = json.loads(decompress_data)
             except json.decoder.JSONDecodeError:
                 print("String could not be converted to JSON: receive")
                 print(receive)
