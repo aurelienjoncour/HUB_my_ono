@@ -16,7 +16,7 @@ from client.Graphic import Graphic
 from client.Network import Network
 
 infoObject = pygame.display.Info()
-screen = pygame.display.set_mode([infoObject.current_w, infoObject.current_h], pygame.RESIZABLE)
+screen = pygame.display.set_mode((pygame.display.Info().current_w, pygame.display.Info().current_h), pygame.SCALED)
 
 menu = MainMenu(screen)
 Main = Graphic(screen)
