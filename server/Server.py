@@ -39,6 +39,8 @@ class Server:
                             game.handle_bluff(True)
                         elif data == "dontdenonce":
                             game.handle_bluff(False)
+                        elif data == "reset":
+                            game.reset_game()
                         elif data != "get":
                             parsed = data.split(":")
                             if len(parsed) == 2:

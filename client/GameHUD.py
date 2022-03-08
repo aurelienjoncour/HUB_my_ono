@@ -23,6 +23,7 @@ class GameHUD:
         self.posX = self.infoObject.current_w / 2 - 50
         self.button_denounce = Button({"x": self.infoObject.current_w / 2 - 180, "y": (self.infoObject.current_h - 272) / 2 - 40}, {"width": 180, "height": 32}, "Dénoncer !")
         self.button_skip = Button({"x": self.infoObject.current_w / 2 + 20, "y": (self.infoObject.current_h - 272) / 2 - 40}, {"width": 180, "height": 32}, "Passer !")
+        self.button_restart = Button({"x": self.infoObject.current_w / 2 + 20, "y": (self.infoObject.current_h - 272) / 2 - 40}, {"width": 180, "height": 32}, "Rejouer !")
         self.rect_red = pygame.Rect(self.posX, self.posY, 50, 50)
         self.rect_green = pygame.Rect(self.posX + 50, self.posY, 50, 50)
         self.rect_blue = pygame.Rect(self.posX, self.posY + 50, 50, 50)
@@ -139,14 +140,16 @@ class GameHUD:
         else:
             self.screen.blit(self.anticlockwise, [(self.infoObject.current_w - 244) / 2, (self.infoObject.current_h - 272) / 2])
 
-    def draw_game_button(self, ask_bluff, ask_p2):
+    def draw_game_button(self, ask_bluff, ask_p2, restart = False):
         if ask_bluff:
             self.button_denounce.draw(self.screen)
             self.button_skip.draw(self.screen)
         elif ask_p2:
             self.button_skip.draw(self.screen)
+        elif restart:
+            self.button_restart.draw(self.screen)
 
-    def event_handler(self, event, ask_bluff, ask_p2):
+    def event_handler(self, event, ask_bluff, ask_p2, restart):
         if ask_bluff:
             self.button_denounce.event_handler(event)
             self.button_skip.event_handler(event)
@@ -163,6 +166,13 @@ class GameHUD:
                 "skip": self.button_skip.button_state
             }
             self.button_skip.button_state = False
+            return state
+        elif restart:
+            self.button_restart.event_handler(event)
+            state = {
+                "restart": self.button_restart.button_state
+            }
+            self.button_restart.button_state = False
             return state
         return None
 

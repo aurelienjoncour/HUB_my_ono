@@ -60,7 +60,7 @@ class Graphic:
 			self.hud.top_stack_card(self.game["topStackCard"])
 			ask_bluff = self.game["ask_bluff"] == self.player_id
 			ask_p2 = self.game["ask_p2"] == self.player_id
-			self.hud.draw_game_button(ask_bluff, ask_p2)
+			self.hud.draw_game_button(ask_bluff, ask_p2, self.game["won"])
 			self.hud.counter()
 			if self.choose_color:
 				self.hud.color_choice()
@@ -84,7 +84,7 @@ class Graphic:
 							self.cardIdx = self.hud.clickOnCard()
 							if self.cardIdx != None:
 								self.play()
-				buttons_state = self.hud.event_handler(event, ask_bluff, ask_p2)
+				buttons_state = self.hud.event_handler(event, ask_bluff, ask_p2, self.game["won"])
 				if self.hud.eventButtonCounter(event):
 					self.network.send("uno")
 				if buttons_state != None:
@@ -96,3 +96,6 @@ class Graphic:
 					elif ask_p2:
 						if buttons_state["skip"]:
 							self.game = self.network.send("skipp2")
+					elif self.game["won"]:
+						if buttons_state["restart"]:
+							self.game = self.network.send("reset")

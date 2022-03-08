@@ -23,6 +23,23 @@ class Game:
         self.ask_p2 = None #id of the player asked for p2
         self.setTopStackCard()
 
+    def reset_game(self):
+        self.deck = Deck()
+        self.topStackCard = None
+        self.setTopStackCard()
+        self.won = False
+        self.play_sense = 1
+        self.player_idx = 0
+        self.p2_stack = 0
+        self.uno = None
+        self.say_uno = None
+        self.ask_bluff = None
+        self.ask_p2 = None
+        for player in self.players:
+            player.deck = self.deck.getCards(7)
+        self.is_player_card_playable()
+        self.start()
+
     def gameToDict(self):
         players = []
         for player in self.players:
