@@ -2,6 +2,7 @@
 #  pyinstaller.exe --clean --log-level DEBUG --onefile --windowed ./main.spec
 
 import pygame
+import platform
 
 # pygame.init()
 
@@ -15,7 +16,11 @@ from client.Graphic import Graphic
 from client.Network import Network
 
 infoObject = pygame.display.Info()
-screen = pygame.display.set_mode((pygame.display.Info().current_w, pygame.display.Info().current_h), pygame.SCALED)
+
+if platform.system() == "Windows":
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+else:
+    screen = pygame.display.set_mode((pygame.display.Info().current_w, pygame.display.Info().current_h), pygame.SCALED)
 
 menu = MainMenu(screen)
 Main = Graphic(screen)
