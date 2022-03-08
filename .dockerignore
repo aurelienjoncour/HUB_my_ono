@@ -1,4 +1,4 @@
 client/
 __pycache__
 archives
-client.py
+main.py
