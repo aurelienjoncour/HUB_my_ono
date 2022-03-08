@@ -32,7 +32,9 @@ class Server:
                     if not data:
                         break
                     else:
-                        if data == "denounce":
+                        if data == "skipp2":
+                            game.handle_p2_res()
+                        elif data == "denounce":
                             game.handle_bluff(True)
                         elif data == "dontdenonce":
                             game.handle_bluff(False)

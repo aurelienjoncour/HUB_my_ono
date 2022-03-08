@@ -58,7 +58,9 @@ class Graphic:
 			self.hud.draw_arrow(self.game["play_sense"])
 			self.hud.all_players(self.game["players"], player_id)
 			self.hud.top_stack_card(self.game["topStackCard"])
-			self.hud.draw_game_button(self.game["ask_bluff"] == self.player_id)
+			ask_bluff = self.game["ask_bluff"] == self.player_id
+			ask_p2 = self.game["ask_p2"] == self.player_id
+			self.hud.draw_game_button(ask_bluff, ask_p2)
 			self.hud.counter()
 			if self.choose_color:
 				self.hud.color_choice()
@@ -82,10 +84,14 @@ class Graphic:
 							self.cardIdx = self.hud.clickOnCard()
 							if self.cardIdx != None:
 								self.play()
-				buttons_state = self.hud.event_handler(event, self.game["ask_bluff"] == self.player_id)
+				buttons_state = self.hud.event_handler(event, ask_bluff, ask_p2)
 				self.hud.eventButtonCounter(event)
 				if buttons_state != None:
-					if buttons_state["denounce"]:
-						self.game = self.network.send("denounce")
-					elif buttons_state["skip"]:
-						self.game = self.network.send("dontdenonce")
+					if ask_bluff:
+						if buttons_state["denounce"]:
+							self.game = self.network.send("denounce")
+						elif buttons_state["skip"]:
+							self.game = self.network.send("dontdenonce")
+					elif ask_p2:
+						if buttons_state["skip"]:
+							self.game = self.network.send("skipp2")

@@ -16,7 +16,9 @@ class Game:
         self.won = False
         self.play_sense = 1
         self.player_idx = 0
+        self.p2_stack = 0
         self.ask_bluff = None #id of the player asked for bluff
+        self.ask_p2 = None #id of the player asked for p2
         self.setTopStackCard()
 
     def gameToDict(self):
@@ -32,6 +34,7 @@ class Game:
             "play_sense": self.play_sense,
             "won": self.won,
             "ask_bluff": self.ask_bluff,
+            "ask_p2": self.ask_p2
         }
 
     def addPlayer(self, name, player_id):
@@ -52,6 +55,15 @@ class Game:
     def is_player_card_playable(self):
         for player in self.players:
             player.updatePlayableCard(self.topStackCard)
+
+    def handle_p2_res(self): #handle Skip p2
+        additional_card = self.deck.getCards(self.p2_stack)
+        for card in additional_card:                                #On ajoute les cartes pour nous
+            self.players[self.player_idx].deck.append(card)         #On passe au suivant
+        self.end_tour(False, [])
+        self.update_card()
+        self.p2_stack = 0
+        self.ask_p2 = None
 
     def handle_bluff(self, denonce):
         print("Call Handle bluff function")
@@ -84,6 +96,19 @@ class Game:
             if card.playable:
                 return True
         return False
+
+    def have_p2(self, player):
+        for card in player.deck:
+            if type(card.value) == Value and card.value == Value.PLUS_TWO:
+                return True
+        return False
+
+    def make_only_p2_playable(self, player):
+        for card in player.deck:
+            if type(card.value) == Value and card.value == Value.PLUS_TWO:
+                card.playable = True
+            else:
+                card.playable = False
 
     def add_card_if_not_playable(self):
         for player in self.players:
@@ -127,6 +152,7 @@ class Game:
     def play_card(self, card, player_idx, color):
         print("Play Card")
         skip = False
+        self.ask_p2 = None
         additional_card = []
         self.topStackCard.reset_bonus_color()
         self.deck.addCard(self.topStackCard)                    #On ajoute la carte joué dans le deck commun
@@ -145,8 +171,17 @@ class Game:
         elif type(card.value) == Value and card.value == Value.SKIP:
             skip = True
         elif type(card.value) == Value and card.value == Value.PLUS_TWO:
-            additional_card = self.deck.getCards(2)
-            skip = True
+            self.p2_stack += 2
+            if not self.have_p2(self.players[self.get_next_player()]):
+                additional_card = self.deck.getCards(self.p2_stack)
+                skip = True
+                self.p2_stack = 0
+            else:
+                self.ask_p2 = self.players[self.get_next_player()].id
+                self.make_only_p2_playable(self.players[self.get_next_player()])
+                self.end_tour(False, [])
+                return
+
         elif type(card.value) == Bonus and card.value == Bonus.SUPER_JOKER:
             self.ask_bluff = self.players[self.get_next_player()].id
             self.players[self.player_idx].should_play = False
