@@ -180,4 +180,5 @@ class GameHUD:
     def eventButtonCounter(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.counter_ono_rect.collidepoint(pygame.mouse.get_pos()):
-                print("UNO")
+                return True
+        return False

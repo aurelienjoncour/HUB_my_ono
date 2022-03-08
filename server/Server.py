@@ -34,6 +34,8 @@ class Server:
                     else:
                         if data == "skipp2":
                             game.handle_p2_res()
+                        elif data == "uno":
+                            game.handle_uno(playerId)
                         elif data == "denounce":
                             game.handle_bluff(True)
                         elif data == "dontdenonce":

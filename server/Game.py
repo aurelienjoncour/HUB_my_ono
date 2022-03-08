@@ -17,6 +17,8 @@ class Game:
         self.play_sense = 1
         self.player_idx = 0
         self.p2_stack = 0
+        self.uno = None
+        self.say_uno = None
         self.ask_bluff = None #id of the player asked for bluff
         self.ask_p2 = None #id of the player asked for p2
         self.setTopStackCard()
@@ -55,6 +57,25 @@ class Game:
     def is_player_card_playable(self):
         for player in self.players:
             player.updatePlayableCard(self.topStackCard)
+
+    def get_player_by_id(self, id):
+        for player in self.players:
+            if player.id == id:
+                return player
+        return None
+
+    def handle_uno(self, playerId):
+        actual_player = self.get_player_by_id(playerId)
+        if self.uno != None and playerId != self.uno and self.uno != self.say_uno:
+            print("A player say counteur uno")
+            additional_card = self.deck.getCards(2)
+            player_uno_pos = self.get_player_by_id(self.uno)
+            for card in additional_card:
+                player_uno_pos.deck.append(card)
+            self.uno = None
+        elif actual_player.should_play and len(actual_player.deck) == 2:
+            print("Player say uno")
+            self.say_uno = playerId
 
     def handle_p2_res(self): #handle Skip p2
         additional_card = self.deck.getCards(self.p2_stack)
@@ -114,6 +135,7 @@ class Game:
         for player in self.players:
             if player.should_play:
                 while not player.isDeckPlayable():
+                    print("player " + player.name + "should play and should give card to him")
                     card = self.deck.getCards()[0]
                     player.deck.append(card)
                     self.is_player_card_playable()
@@ -151,6 +173,12 @@ class Game:
 
     def play_card(self, card, player_idx, color):
         print("Play Card")
+        if len(self.players[player_idx].deck) == 2:
+            self.uno = self.players[player_idx].id
+            print("Position uno " + self.players[player_idx].name + ": " + str(self.players[player_idx].id))
+        else:
+            self.uno = None
+            self.say_uno = None
         skip = False
         self.ask_p2 = None
         additional_card = []

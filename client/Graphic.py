@@ -85,7 +85,8 @@ class Graphic:
 							if self.cardIdx != None:
 								self.play()
 				buttons_state = self.hud.event_handler(event, ask_bluff, ask_p2)
-				self.hud.eventButtonCounter(event)
+				if self.hud.eventButtonCounter(event):
+					self.network.send("uno")
 				if buttons_state != None:
 					if ask_bluff:
 						if buttons_state["denounce"]:
