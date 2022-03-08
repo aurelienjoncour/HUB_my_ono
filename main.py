@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-#  pyinstaller.exe --clean --log-level DEBUG --noconsole --onefile --windowed ./main.spec
-
+#  pyinstaller.exe --clean --log-level DEBUG --onefile --windowed ./main.spec
 
 import pygame
 

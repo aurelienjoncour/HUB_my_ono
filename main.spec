@@ -44,3 +44,22 @@ exe = EXE(pyz,
           codesign_identity=None,
           entitlements_file=None,
           icon='app.ico' )
+
+app = BUNDLE(exe,
+         name='MyOno.app',
+         icon=None,
+         bundle_identifier=None,
+         version='0.0.1',
+         info_plist={
+            'NSPrincipalClass': 'NSApplication',
+            'NSAppleScriptEnabled': False,
+            'CFBundleDocumentTypes': [
+                {
+                    'CFBundleTypeName': 'My File Format',
+                    'CFBundleTypeIconFile': 'MyFileIcon.icns',
+                    'LSItemContentTypes': ['com.jaaj.example'],
+                    'LSHandlerRank': 'Owner'
+                    }
+                ]
+            },
+         )
