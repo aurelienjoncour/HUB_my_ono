@@ -71,7 +71,7 @@ class GameHUD:
     def show_win(self, players):
         for player in players:
             if player["should_play"]:
-                self.screen.blit(self.font_name.render(player["name"] + " as won the game !", True, (0, 0, 0)), (500, 10))
+                self.screen.blit(self.font_name.render(player["name"] + " as won the game !", True, (255,255,255)), (500, 10))
 
     def player_name(self, player, pos):
         color = (255, 255, 255)
