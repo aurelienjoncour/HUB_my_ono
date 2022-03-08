@@ -16,7 +16,9 @@ class MainMenu:
     server_field = InputField({"x": (infoObject.current_w - 140) / 2, "y": 500},
     {"width": 140, "height": 32}, "127.0.0.1")
     button_click = Button({"x": (infoObject.current_w - 140) / 2, "y": 600},
-    {"width": 140, "height": 32}, "play")
+    {"width": 140, "height": 32}, "Play")
+    button_exit = Button({"x": (infoObject.current_w - 140) / 2, "y": 700},
+    {"width": 140, "height": 32}, "Quit")
     text_fields = [name_field, server_field]
     join_button = None
     create_button = None
@@ -33,8 +35,10 @@ class MainMenu:
 
     def menuLoop(self) -> None:
         while self.run:
-            # TODO: display text, input for player name, server address
             # TODO: button join game, create game, quit
+            if self.button_exit.button_state:
+                self.should_exit = True
+                self.run = False
             if self.button_click.button_state:
                 self.run = False
                 self.player_name = self.name_field.text
@@ -46,6 +50,7 @@ class MainMenu:
                 for field in self.text_fields:
                     field.event_handler(event)
                 self.button_click.event_handler(event)
+                self.button_exit.event_handler(event)
 
             for field in self.text_fields:
                 field.update()
@@ -55,4 +60,5 @@ class MainMenu:
             for field in self.text_fields:
                 field.draw(self.win)
             self.button_click.draw(self.win)
+            self.button_exit.draw(self.win)
             pygame.display.flip()

@@ -2,8 +2,8 @@ import pygame
 
 class InputField:
 
-    COLOR_INACTIVE = pygame.Color('lightskyblue3')
-    COLOR_ACTIVE = pygame.Color('dodgerblue2')
+    COLOR_INACTIVE = pygame.Color('white')
+    COLOR_ACTIVE = pygame.Color(37,37,37)
 
     def __init__(self, pos, size, text = "") -> None:
         self.FONT = pygame.font.SysFont('Arial', 22)

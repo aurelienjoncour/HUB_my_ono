@@ -7,7 +7,7 @@ class Button:
         self.text = text
         self.rect = pygame.Rect(pos["x"], pos["y"],
                                 size["width"], size["height"])
-        self.color = pygame.Color("red")
+        self.color = pygame.Color("white")
         self.text_surface = self.FONT.render(text, True, self.color)
         self.button_state = False
 
@@ -21,4 +21,4 @@ class Button:
         if self.button_state:
             pygame.draw.rect(screen, self.color, self.rect, 2)
         else:
-            pygame.draw.rect(screen, pygame.Color("black"), self.rect, 2)
+            pygame.draw.rect(screen, pygame.Color("white"), self.rect, 2)
