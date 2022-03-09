@@ -77,10 +77,11 @@ class MainMenu:
             pygame.display.flip()
 
     def Stacking(self):
-        self.win.blit(self.FONT.render("+2 Cards are stackable ?", True, (255,255,255)), [(self.infoObject.current_w - 64) / 12 - 70, (self.infoObject.current_h - 96) / 2 - 32])
         if self.stacking_isActivate:
+            self.win.blit(self.FONT.render("+2 Cards are stackable", True, (255,255,255)), [(self.infoObject.current_w - 64) / 12 - 70, (self.infoObject.current_h - 96) / 2 - 32])
             self.win.blit(self.stacking_icon, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
         else:
+            self.win.blit(self.FONT.render("+2 Cards not are stackable", True, (255,255,255)), [(self.infoObject.current_w - 64) / 12 - 70, (self.infoObject.current_h - 96) / 2 - 32])
             bad_card = self.stacking_icon.copy()
             bad_card.fill((80, 80, 80), special_flags=pygame.BLEND_RGB_SUB)
             self.win.blit(bad_card, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
