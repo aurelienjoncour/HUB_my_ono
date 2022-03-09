@@ -30,7 +30,7 @@ class MainMenu:
     run = True
     win = None
     should_exit = False
-    stacking_isActivate = False
+    stacking_isActivate = True
 
     def __init__(self, win) -> None:
         self.win = win
@@ -39,7 +39,6 @@ class MainMenu:
 
     def menuLoop(self, error_msg) -> None:
         while self.run:
-            # TODO: button join game, create game, quit
             if self.button_exit.button_state:
                 self.should_exit = True
                 self.run = False
@@ -78,12 +77,13 @@ class MainMenu:
             pygame.display.flip()
 
     def Stacking(self):
+        #self.win.blit(self.font_name.render(player["name"] + " as won the game !", True, (255,255,255)), (500, 10))
         if self.stacking_isActivate:
+            self.win.blit(self.stacking_icon, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
+        else:
             bad_card = self.stacking_icon.copy()
             bad_card.fill((80, 80, 80), special_flags=pygame.BLEND_RGB_SUB)
             self.win.blit(bad_card, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
-        else:
-            self.win.blit(self.stacking_icon, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
 
     def eventButtonStacking(self):
         if self.stacking_rect.collidepoint(pygame.mouse.get_pos()):

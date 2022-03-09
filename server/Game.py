@@ -88,7 +88,7 @@ class Game:
                 if self.players[idx].id == next_player_id:
                     self.player_idx = idx
                     self.players[idx].should_play = True
-        
+
     def setTopStackCard(self):
         tmpCard = None
         while self.topStackCard == None or self.topStackCard.color == None:
@@ -138,7 +138,7 @@ class Game:
                 additional_card = self.deck.getCards(4)
                 for card in additional_card:
                     self.players[self.player_idx].deck.append(card)
-                self.setIndexToNextPlayer(False) 
+                self.setIndexToNextPlayer(False)
                 self.update_card()
                 #donner +4 carte au joueur qui a poser le +4, passer au joueur suivant
             else:
@@ -236,7 +236,7 @@ class Game:
         if type(card.value) == Bonus and card.color == None:    #Si la carte est une bonus on change ça couleur
             card.change_bonus_color(Color(color))
         self.topStackCard = card
-        
+
         if type(card.value) == Value and card.value == Value.REVERSE:
             self.play_sense = not self.play_sense
         elif type(card.value) == Value and card.value == Value.SKIP:
