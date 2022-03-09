@@ -31,7 +31,17 @@ class Server:
                     if not data:
                         break
                     else:
-                        if data == "skipp2":
+                        if data == "gamerule:stack_p2":
+                            print("gamerule:stack_p2")
+                            if game.stacking_p2 == None:
+                                print("set rule")
+                                game.stacking_p2 = True
+                        elif data == "gamerule:dont_stack_p2":
+                            print("gamerule:dont_stack_p2")
+                            if game.stacking_p2 == None:
+                                print("set rule")
+                                game.stacking_p2 = False
+                        elif data == "skipp2":
                             game.handle_p2_res()
                         elif data == "uno":
                             game.handle_uno(playerId)

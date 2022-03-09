@@ -42,9 +42,13 @@ class Graphic:
 			else:
 				self.game = self.network.send(str(self.cardIdx))
 
-	def mainLoop(self, network, player_id):
+	def mainLoop(self, network, player_id, stack_p2):
 		self.network = network
 		self.player_id = player_id
+		if stack_p2:
+			self.network.send("gamerule:stack_p2")
+		else:
+			self.network.send("gamerule:dont_stack_p2")
 		while self.isrunning:
 			self.clock.tick(60)
 			try:

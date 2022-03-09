@@ -10,6 +10,7 @@ class MainMenu:
     infoObject = pygame.display.Info()
     ip_address = ""
     player_name = str(randrange(9999999999))
+    stacking_isActivate = True
     clock = pygame.time.Clock()
     name_field = InputField({"x": (infoObject.current_w - 140) / 2, "y": 400},
     {"width": 140, "height": 32}, "pseudo")
@@ -30,7 +31,6 @@ class MainMenu:
     run = True
     win = None
     should_exit = False
-    stacking_isActivate = True
 
     def __init__(self, win) -> None:
         self.win = win
@@ -88,3 +88,4 @@ class MainMenu:
     def eventButtonStacking(self):
         if self.stacking_rect.collidepoint(pygame.mouse.get_pos()):
             return not self.stacking_isActivate
+        return self.stacking_isActivate

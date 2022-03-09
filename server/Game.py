@@ -21,6 +21,7 @@ class Game:
         self.say_uno = None
         self.ask_bluff = None #id of the player asked for bluff
         self.ask_p2 = None #id of the player asked for p2
+        self.stacking_p2 = None
         self.setTopStackCard()
 
     def reset_game(self):
@@ -35,6 +36,7 @@ class Game:
         self.say_uno = None
         self.ask_bluff = None
         self.ask_p2 = None
+        self.stacking_p2 = None
         for player in self.players:
             player.deck = self.deck.getCards(7)
         self.is_player_card_playable()
@@ -242,17 +244,20 @@ class Game:
         elif type(card.value) == Value and card.value == Value.SKIP:
             skip = True
         elif type(card.value) == Value and card.value == Value.PLUS_TWO:
-            self.p2_stack += 2
-            if not self.have_p2(self.players[self.get_next_player()]):
-                additional_card = self.deck.getCards(self.p2_stack)
-                skip = True
-                self.p2_stack = 0
+            if self.stacking_p2:
+                self.p2_stack += 2
+                if not self.have_p2(self.players[self.get_next_player()]):
+                    additional_card = self.deck.getCards(self.p2_stack)
+                    skip = True
+                    self.p2_stack = 0
+                else:
+                    self.ask_p2 = self.players[self.get_next_player()].id
+                    self.make_only_p2_playable(self.players[self.get_next_player()])
+                    self.end_tour(False, [])
+                    return
             else:
-                self.ask_p2 = self.players[self.get_next_player()].id
-                self.make_only_p2_playable(self.players[self.get_next_player()])
-                self.end_tour(False, [])
-                return
-
+                additional_card = self.deck.getCards(2)
+                skip = True
         elif type(card.value) == Bonus and card.value == Bonus.SUPER_JOKER:
             self.ask_bluff = self.players[self.get_next_player()].id
             self.players[self.player_idx].should_play = False

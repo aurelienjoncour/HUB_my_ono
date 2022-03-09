@@ -38,7 +38,7 @@ def main():
         res = network.connect(menu.player_name)
         if res != None:
             playerId = int(res)
-            Main.mainLoop(network, playerId)
+            Main.mainLoop(network, playerId, menu.stacking_isActivate)
         else:
             error_msg = str("Could not connect to: "+ menu.ip_address)
             main()
