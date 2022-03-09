@@ -30,7 +30,7 @@ class MainMenu:
     run = True
     win = None
     should_exit = False
-    isActivate = False
+    stacking_isActivate = False
 
     def __init__(self, win) -> None:
         self.win = win
@@ -56,7 +56,7 @@ class MainMenu:
                         self.should_exit = True
                         self.run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    self.isActivate = self.eventButtonStacking()
+                    self.stacking_isActivate = self.eventButtonStacking()
                 for field in self.text_fields:
                     field.event_handler(event)
                 self.button_click.event_handler(event)
@@ -78,7 +78,7 @@ class MainMenu:
             pygame.display.flip()
 
     def Stacking(self):
-        if self.isActivate:
+        if self.stacking_isActivate:
             bad_card = self.stacking_icon.copy()
             bad_card.fill((80, 80, 80), special_flags=pygame.BLEND_RGB_SUB)
             self.win.blit(bad_card, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
@@ -87,4 +87,4 @@ class MainMenu:
 
     def eventButtonStacking(self):
         if self.stacking_rect.collidepoint(pygame.mouse.get_pos()):
-            return not self.isActivate
+            return not self.stacking_isActivate
