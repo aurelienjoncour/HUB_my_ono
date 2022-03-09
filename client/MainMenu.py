@@ -21,6 +21,8 @@ class MainMenu:
     {"width": 140, "height": 32}, "Play")
     button_exit = Button({"x": (infoObject.current_w - 140) / 2, "y": 700},
     {"width": 140, "height": 32}, "Quit")
+    stacking_icon = pygame.image.load("asset/stacking_button.png")
+    stacking_rect = pygame.Rect((infoObject.current_w - 64) / 12, (infoObject.current_h - 96) / 2, 64, 96)
     text_fields = [name_field, server_field]
     join_button = None
     create_button = None
@@ -28,12 +30,12 @@ class MainMenu:
     run = True
     win = None
     should_exit = False
+    isActivate = False
 
     def __init__(self, win) -> None:
         self.win = win
         self.background_image = pygame.image.load("asset/my_uno_bg.png").convert()
         self.logo = pygame.image.load("asset/ono_logo.png")
-        #self.join_button = button(pygame.Color('chartreuse4'), 10, 10, 100, 20, "TEST")
 
     def menuLoop(self, error_msg) -> None:
         while self.run:
@@ -53,6 +55,8 @@ class MainMenu:
                     if event.key == pygame.K_ESCAPE:
                         self.should_exit = True
                         self.run = False
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    self.isActivate = self.eventButtonStacking()
                 for field in self.text_fields:
                     field.event_handler(event)
                 self.button_click.event_handler(event)
@@ -63,6 +67,7 @@ class MainMenu:
             self.win.fill((128, 128, 128))
             self.win.blit(self.background_image, [0, 0])
             self.win.blit(self.logo, [(self.infoObject.current_w - 128) / 2, 150])
+            self.Stacking()
             if error_msg != None:
                 text_surface = self.FONT.render(error_msg, True, self.color)
                 self.win.blit(text_surface, ((self.infoObject.current_w - 140) / 2, 540))
@@ -71,3 +76,15 @@ class MainMenu:
             self.button_click.draw(self.win)
             self.button_exit.draw(self.win)
             pygame.display.flip()
+
+    def Stacking(self):
+        if self.isActivate:
+            bad_card = self.stacking_icon.copy()
+            bad_card.fill((80, 80, 80), special_flags=pygame.BLEND_RGB_SUB)
+            self.win.blit(bad_card, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
+        else:
+            self.win.blit(self.stacking_icon, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
+
+    def eventButtonStacking(self):
+        if self.stacking_rect.collidepoint(pygame.mouse.get_pos()):
+            return not self.isActivate
