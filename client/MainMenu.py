@@ -15,6 +15,8 @@ class MainMenu:
     {"width": 140, "height": 32}, "pseudo")
     server_field = InputField({"x": (infoObject.current_w - 140) / 2, "y": 500},
     {"width": 140, "height": 32}, "127.0.0.1")
+    FONT = pygame.font.SysFont('Arial', 22)
+    color = pygame.Color("white")
     button_click = Button({"x": (infoObject.current_w - 140) / 2, "y": 600},
     {"width": 140, "height": 32}, "Play")
     button_exit = Button({"x": (infoObject.current_w - 140) / 2, "y": 700},
@@ -33,7 +35,7 @@ class MainMenu:
         self.logo = pygame.image.load("asset/ono_logo.png")
         #self.join_button = button(pygame.Color('chartreuse4'), 10, 10, 100, 20, "TEST")
 
-    def menuLoop(self) -> None:
+    def menuLoop(self, error_msg) -> None:
         while self.run:
             # TODO: button join game, create game, quit
             if self.button_exit.button_state:
@@ -61,6 +63,9 @@ class MainMenu:
             self.win.fill((128, 128, 128))
             self.win.blit(self.background_image, [0, 0])
             self.win.blit(self.logo, [(self.infoObject.current_w - 128) / 2, 150])
+            if error_msg != None:
+                text_surface = self.FONT.render(error_msg, True, self.color)
+                self.win.blit(text_surface, ((self.infoObject.current_w - 140) / 2, 540))
             for field in self.text_fields:
                 field.draw(self.win)
             self.button_click.draw(self.win)

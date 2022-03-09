@@ -12,10 +12,15 @@ class Network:
     def connect(self, pseudo):
         try:
             self.client.connect(self.addr)
+        except:
+            print("Could not connect to: ", self.ip_address)
+            return None
+        try:
             self.client.send(str.encode(pseudo))
             return self.client.recv(2048).decode()
         except:
-            pass
+            print("Unable to send init packet to server: ", self.ip_address)
+            return None
 
     def send(self, data):
         try:

@@ -25,10 +25,22 @@ else:
 menu = MainMenu(screen)
 Main = Graphic(screen)
 
-menu.menuLoop()
+error_msg = None
 
-if not menu.should_exit:
-    network = Network(menu.ip_address, 8080)
-    res = network.connect(menu.player_name)
-    playerId = int(res)
-    Main.mainLoop(network, playerId)
+def main():
+    global error_msg
+    menu.run = True
+    menu.button_click.button_state = False
+    menu.menuLoop(error_msg)
+
+    if not menu.should_exit:
+        network = Network(menu.ip_address, 8080)
+        res = network.connect(menu.player_name)
+        if res != None:
+            playerId = int(res)
+            Main.mainLoop(network, playerId)
+        else:
+            error_msg = str("Could not connect to: "+ menu.ip_address)
+            main()
+
+main()
