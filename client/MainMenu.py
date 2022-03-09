@@ -77,7 +77,7 @@ class MainMenu:
             pygame.display.flip()
 
     def Stacking(self):
-        #self.win.blit(self.font_name.render(player["name"] + " as won the game !", True, (255,255,255)), (500, 10))
+        self.win.blit(self.FONT.render("+2 Cards are stackable ?", True, (255,255,255)), [(self.infoObject.current_w - 64) / 12 - 70, (self.infoObject.current_h - 96) / 2 - 32])
         if self.stacking_isActivate:
             self.win.blit(self.stacking_icon, [(self.infoObject.current_w - 64) / 12, (self.infoObject.current_h - 96) / 2])
         else:
